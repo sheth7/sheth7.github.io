@@ -1,0 +1,1111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts | Kanishka Misra</title>
+    <link>/post/</link>
+      <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <description>Posts</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Kanishka Misra 2020</copyright><lastBuildDate>Wed, 19 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Posts</title>
+      <link>/post/</link>
+    </image>
+    
+    <item>
+      <title>Implementing a Neural Network from scratch in R using rrays</title>
+      <link>/post/implementing-a-neural-network-from-scratch-using-rrays/</link>
+      <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>/post/implementing-a-neural-network-from-scratch-using-rrays/</guid>
+      <description>
+
+
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;In this post, I want to briefly demonstrate how one can implement a simple Neural Network architecture in R using a new package for array/tensor computation called &lt;code&gt;rray&lt;/code&gt; along with the &lt;code&gt;R6&lt;/code&gt; object oriented programming system which will be used to modularize the various elements requried for anyone to build a neural network architecture. Using our neural network toolkit, I will demonstrate the quintessential example where Linear Models fail but Neural Networks succeed: the &lt;strong&gt;XOR function&lt;/strong&gt;. Most of the code is going to mimick Joel Grus’ awesome code for “Building a Deep Learning Library” resource found &lt;a href=&#34;&#34;&gt;here&lt;/a&gt;, I cannot state enough about how helpful his videos and blog posts have been. An important difference is that I have ported his python code to R and used rray as the tensor computation package to do all the heavylifting.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;neural-network-primer-an-inadequate-one&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Neural Network Primer (an inadequate one)&lt;/h2&gt;
+&lt;p&gt;Specifically, the post covers implementing multilayer perceptrons (MLP). MLPs are prototypical deep learning models whose goal is to approximate a function, &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{y} = f(\mathbf{x}|\Theta)\)&lt;/span&gt;, where &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{x}\)&lt;/span&gt; are the inputs and &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{y}\)&lt;/span&gt; are the outputs and it does so by &lt;em&gt;learning&lt;/em&gt; the best parameters captured in the collection &lt;span class=&#34;math inline&#34;&gt;\(\Theta\)&lt;/span&gt;. These are also referred to as Feed-forward Neural Networks because information flows only in one direction: &lt;em&gt;forward&lt;/em&gt; through a series of functions to compute the output values&lt;a href=&#34;#fn1&#34; class=&#34;footnote-ref&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;. The simplest form of a multi-layer perceptron is composed of a series of transformations to the input:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+f_1 = xW_1 + b_1 \\
+g = \phi(f_1(x)) \\
+f_2 = gW_2 + b_2
+\]&lt;/span&gt;
+Combining these equations into one,&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+MLP(x) = \phi(xW_1 + b_1)W_2 + b_2
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Here &lt;span class=&#34;math inline&#34;&gt;\(f_1\)&lt;/span&gt; is a single perceptron, which is a linear transformation of the input vector &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;, using the matrix &lt;span class=&#34;math inline&#34;&gt;\(W\)&lt;/span&gt;. &lt;span class=&#34;math inline&#34;&gt;\(\phi\)&lt;/span&gt; is a non-linear function that is often referred to as an activation function that (in this case) transforms the input into something from which a simple linear model, &lt;span class=&#34;math inline&#34;&gt;\(f_2\)&lt;/span&gt; can be easily trained to accurately predict the correct output. The weight matrices &lt;span class=&#34;math inline&#34;&gt;\(\{W_1, W_2\}\)&lt;/span&gt; and the bias vectors &lt;span class=&#34;math inline&#34;&gt;\(\{b_1, b_2\}\)&lt;/span&gt; form our parameters which are &lt;em&gt;learnt&lt;/em&gt; during training.&lt;/p&gt;
+&lt;p&gt;How is the network trained and how are the parameters &lt;em&gt;learnt&lt;/em&gt;? Using the combination of loss functions and gradient descent methods of course! More precisely, in a typical usecase of Neural Networks, one would have inputs (&lt;span class=&#34;math inline&#34;&gt;\(\mathbf{x}\)&lt;/span&gt;) and the corresponding outputs (&lt;span class=&#34;math inline&#34;&gt;\(\mathbf{y}\)&lt;/span&gt;) that the network has to be trained to predict, loss functions operationalize this by assigning a numerical score to the produced output of a neural network (denoted by &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{\hat{y}}\)&lt;/span&gt;) by comparing it to the desired output using some mathematical function(s), i.e., they try to quantify how bad are the predictions of the neural network. Once the score is calculated, it is important for the model to tweak the gradients such that this score is minimized. This is done using Gradient based learning methods. I do not want to dwelve deeper into theory, but in brief, gradient based methods try to minimize this loss score in an iterative process by:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Computing the loss estimate&lt;/li&gt;
+&lt;li&gt;Computing the rate change of the loss (called gradients or derivatives) with respect to the parameters&lt;/li&gt;
+&lt;li&gt;Shifting the parameter values in a direction opposite to that of the gradients.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In our instance, we will be looking at the canonical example of Gradient based methods, the Stochastic Gradient Descent (SGD).&lt;/p&gt;
+&lt;p&gt;This is not the ideal introduction to Neural Networks and some the resources that do an infinitely better job than I did are the deep learning book by Goodfellow et al. (2016) and Stanford’s CS231n class among others.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;computing-with-vectors-tensors-in-r-a-rray-of-hope&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Computing with Vectors (tensors?) in R: a rray of hope&lt;/h2&gt;
+&lt;p&gt;Since in most cases the inputs and outputs that are used in the training of neural networks are often vectors, we will be using a package in R that provides useful tools to perform computation with these vectors. &lt;code&gt;rray&lt;/code&gt; is a new package in R made by Davis Vaughn with many different goals, but the major one being: it enables seamless integration of array/tensor broadcasting across all widely used functions including ones that could not have been done (easily) by using the &lt;code&gt;Matrix&lt;/code&gt; package (which is extremely awesome and fast!). An example can be shown here:&lt;/p&gt;
+&lt;p&gt;Lets say you have an &lt;span class=&#34;math inline&#34;&gt;\(3 \times 2\)&lt;/span&gt; matrix, and you want to center it columnwise. With &lt;code&gt;rray&lt;/code&gt;, it is a simple operation, like so:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(rray)
+set.seed(1234)
+
+x &amp;lt;- rray(rnorm(6), dim = c(3,2))
+
+x - rray_mean(x, axes = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;lt;rray&amp;lt;dbl&amp;gt;[,2][3]&amp;gt;
+##            [,1]       [,2]
+## [1,] -1.2586673 -1.8755253
+## [2,]  0.2258277  0.8992971
+## [3,]  1.0328396  0.9762283&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In contrast, the default &lt;code&gt;matrix&lt;/code&gt; in R is not able to do this properly:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;set.seed(1234)
+
+x_mat &amp;lt;- matrix(rnorm(6), nrow = 3)
+
+x_mat - colMeans(x_mat)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##            [,1]       [,2]
+## [1,] -1.2586673 -1.8755253
+## [2,]  0.7476016  0.3775231
+## [3,]  1.0328396  0.9762283&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and with the &lt;code&gt;Matrix&lt;/code&gt; library, it becomes a little ugly:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(Matrix)
+set.seed(1234)
+
+x_Mat &amp;lt;- Matrix(rnorm(6), nrow = 3)
+
+t(t(x_Mat) - Matrix(Matrix::colMeans(x_Mat)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 3 x 2 Matrix of class &amp;quot;dgeMatrix&amp;quot;
+##            [,1]       [,2]
+## [1,] -1.2586673 -1.8755253
+## [2,]  0.2258277  0.8992971
+## [3,]  1.0328396  0.9762283&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Hopefully, the point is clear, but for more interesting utilities of broadcasting, check out &lt;a href=&#34;&#34;&gt;this&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;yet-another-r-oop-system-r6&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Yet another R OOP system: R6&lt;/h2&gt;
+&lt;p&gt;Generally, a Neural Network model will be made up of several components. We need to keep track of the inputs, the initialization of weights, the logic of the forward pass, the gradients with respect to the loss function (usually done using auto-diff libraries, but we will be hand coding them), and finally the update rule (gradient based methods in our case). The model could be made up using many different kinds of layers and activation functions, thus in order for us to construct such a model efficiently, using Object Oriented Programming proves to be very useful. The major advantage it gives us is &lt;strong&gt;Encapsulation&lt;/strong&gt;, which helps us abstract the data (parameters of the network) as well as functions (forward, and in our case, backward pass logic) together into an object; and &lt;strong&gt;Polymorphism&lt;/strong&gt;, which allows us to use the same method, say the forward pass for any kind of a model.&lt;/p&gt;
+&lt;p&gt;R provides us with several options for using Object Oriented Paradigms: S3, S4 and R6, but we will be using R6 since it facilitates encapsulation more easily than the others. For a detailed discussion on the trade-offs between the OOP systems in R, I refer the reader to &lt;a href=&#34;https://adv-r.hadley.nz/oo-tradeoffs.html&#34;&gt;Chapter 16 of Hadley Wickham’s awesome second edition of Advanced R.&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;neural-network-layers&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Neural Network Layers&lt;/h2&gt;
+&lt;p&gt;Layers are fundamental structural elements of the network architecture, each layer is usually a function that maps a vector to another vector (or a scalar in certail cases). A typical NN is just a stack of these layers that start from taking in the input data, performing their respective functions, and producing the output.&lt;/p&gt;
+&lt;p&gt;To start off, lets load the required libraries.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(rray)
+library(R6)
+
+set.seed(1234)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, we’d want to describe a general structure of a layer. We do this by defining an &lt;code&gt;R6&lt;/code&gt; class called &lt;code&gt;Layer&lt;/code&gt;. We will need two public fields, the parameters of the layer, and the gradients to pass backward during the backpropagation step. Each layer will also contain two functions: (1) logic about the forward computation for moving &lt;em&gt;ahead&lt;/em&gt; in the network, and (2) the backward computation, for computing and updating the gradients with respect to the input and the parameters.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Layer &amp;lt;- R6Class(
+  &amp;quot;Layer&amp;quot;,
+  public = list(
+    params = list(),
+    grads = list(),
+    initialize = function() {},
+    forward = function() {stop(&amp;quot;Not Implemented!&amp;quot;)},
+    backward = function() {stop(&amp;quot;Not Implemented!&amp;quot;)}
+  )
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since this is a generic layer method, we will not implement anything here, but define a new type of layer by extending this class. Lets define a Linear layer, containing a weights matrix, &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{W}\)&lt;/span&gt; and a bias vector, &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{b}\)&lt;/span&gt;. The forward computation, given input &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{x}\)&lt;/span&gt; is simply:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+  \mathbf{x \cdot W + b}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;To compute the gradients&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Linear &amp;lt;- R6Class(
+  &amp;quot;Linear&amp;quot;,
+  inherit = Layer,
+  public = list(
+    inputs = NULL,
+    initialize = function(input_size, output_size) {
+      # super$initialize()
+      self$params[[&amp;quot;w&amp;quot;]] = rray(rnorm(input_size * output_size), c(input_size, output_size))
+      self$params[[&amp;quot;bias&amp;quot;]] = rray(rnorm(output_size), c(1, output_size))
+    },
+    forward = function(inputs) {
+      self$inputs = inputs
+      return(self$inputs %*% self$params[[&amp;quot;w&amp;quot;]] + self$params[[&amp;quot;bias&amp;quot;]])
+    },
+    backward = function(grad) {
+      self$grads[[&amp;quot;w&amp;quot;]] = t(self$inputs) %*% grad
+      self$grads[[&amp;quot;bias&amp;quot;]] = rray_sum(grad, axes = 1)
+      
+      return(grad %*% t(self$params[[&amp;quot;w&amp;quot;]]))
+    }
+  )
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;there are other types of networks where this isn’t the case, such as Recurrent Neural Networks (RNN) where the output of a network is used as an input to another network&lt;a href=&#34;#fnref1&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>My first few open source contributions: Authorship Attribution of the Federalist Papers</title>
+      <link>/post/my-first-few-open-source-contributions-authorship-attribution-of-the-federalist-papers/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      <guid>/post/my-first-few-open-source-contributions-authorship-attribution-of-the-federalist-papers/</guid>
+      <description>
+
+
+&lt;div id=&#34;background&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Background&lt;/h2&gt;
+&lt;p&gt;During the last semester of my undergraduate education at Purdue, I was engaged in a research project that analyzed conversation between two participants, and delivered some insight regarding the two participants’ future interaction(this will be expanded further in a blog post maybe). This problem somewhat involved authorship profiling and verification, two fields that have been heavily studied in traditional NLP problems and along with authorship attribution are collectively known as Stylometry. Stylometry assumes that each author has a specific style that he/she employs in her writing and uses statistical and computational methods in order to either profile the author, determine the author or verify the author of a given written material.&lt;/p&gt;
+&lt;p&gt;The Federalist Papers problem is a classic stylometry problem that was first studied using statistical toolkits by Mostellar and Wallace. The papers were written as essays between 1787 - 1788 by Alexander Hamilton, John Jay and James Madison (who later became the president of United States) to promote the ratification of the constitution. They were all authored under the pseudonym ‘Publius’, which was a tribute to the founder of the Roman Republic, but were then confirmed to be written by the three authors where Hamilton wrote 51 essays, Jay wrote 5, Madison wrote 14, and Hamilton and Madison co-authored 3. The authorship of the remaining 12 has been in dispute. Mostellar and Wallace used probability distributions to represent word frequencies and concluded that the 12 papers with disputed authorship were written by Madison.&lt;/p&gt;
+&lt;p&gt;In this post, I will leverage some of the open source contributions I made to the R packages &lt;code&gt;widyr&lt;/code&gt; and &lt;code&gt;tidytext&lt;/code&gt; and combine them to present a naive analysis of the authorship of the &lt;em&gt;disputed papers&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;contributing-code-to-r-packages&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Contributing code to R packages&lt;/h2&gt;
+&lt;p&gt;Before I move on, I would like to thank the creators of the &lt;code&gt;widyr&lt;/code&gt; and &lt;code&gt;tidytext&lt;/code&gt; packages, &lt;a href=&#34;https://juliasilge.com/&#34;&gt;Julia Silge&lt;/a&gt; (for &lt;code&gt;tidytext&lt;/code&gt;) and &lt;a href=&#34;http://varianceexplained.org/&#34;&gt;David Robinson&lt;/a&gt; (for &lt;code&gt;widyr&lt;/code&gt; and &lt;code&gt;tidytext&lt;/code&gt;) to have given me the chance to add new features to their packages.&lt;/p&gt;
+&lt;div id=&#34;widyr&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Widyr&lt;/h3&gt;
+&lt;p&gt;This was my first ever code contributing open source contribution, where I added the &lt;code&gt;pairwise_delta&lt;/code&gt; method to a list of pairwise calculations that &lt;code&gt;widyr&lt;/code&gt; offers. This method essentially implements the Burrows’ Delta method which is a distance calculation between documents and has stylometric benefits. It can be mathematically defined as:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+  \frac{1}{n}\sum_{i = 1}^{n}{|z_i(D_1) - z_i(D_2)|}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Or, for 2 documents &lt;span class=&#34;math inline&#34;&gt;\(D_1\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(D_2\)&lt;/span&gt; the average manhattan distance between the z-scores for word frequencies of word &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt; in the documents. The z-scores standardize the frequencies of each word to have 0 mean and 1 standard deviation (normal distribution centered around 0). There has been a little bit of dispute about the mathematical foundations of this method, the explanation and resolution of which can be found in &lt;a href=&#34;http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.842.4317&amp;amp;rep=rep1&amp;amp;type=pdf&#34;&gt;Argamon’s paper&lt;/a&gt;, but since it has historically worked so well in authorship attribution, it is still used when distance based methods get employed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;tidytext&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Tidytext&lt;/h3&gt;
+&lt;p&gt;I’d personally describe this countribution as ‘cheeky’ because I basically added very few lines of code but that is just because how well the foundations of adding new material to the package’s function is. I implemented the functionality of tokenizing by character ngrams, also called as &lt;code&gt;character_shingles&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A character shingle is basically a contiguous sequence of characters from a given piece of text. Something like:&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;/img/figure5-1.jpg&#34; /&gt;
+
+&lt;/div&gt;
+&lt;p&gt;Where we can see how a character 5-gram is constructed (this example uses spaces, but we will be ignoring any punctuation to keep things simple).&lt;/p&gt;
+&lt;p&gt;Character ngrams work well in certain nlp tasks as features of a document feature matrix, because they can:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Reduce the number of features.&lt;/li&gt;
+&lt;li&gt;Capture cutural morphological differences of the same word (color and colour would be captured as col, etc. when n = 3).&lt;/li&gt;
+&lt;li&gt;Detect misspellings.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- Add Image for character ngrams --&gt;
+&lt;p&gt;Thus, we can, in theory, leverage character shingles as our features in hopes of detecting styles in our authorship problem.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;loading-libraries&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Loading libraries&lt;/h2&gt;
+&lt;p&gt;We can get all the federalist papers corpus from the &lt;code&gt;corpus&lt;/code&gt; library.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(corpus)
+library(tidyverse)
+library(widyr)
+library(tidytext)
+
+federalist &amp;lt;- as.tibble(federalist)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can quickly glance the number of papers per author&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;federalist %&amp;gt;%
+  count(author)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 4 x 2
+##   author       n
+##   &amp;lt;chr&amp;gt;    &amp;lt;int&amp;gt;
+## 1 Hamilton    51
+## 2 Jay          5
+## 3 Madison     14
+## 4 &amp;lt;NA&amp;gt;        15&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The 15 NAs include the ones co-authored by Hamilton and Madison, these are Nos. 18-20. We remove them since we cannot determine which parts of the papers were written by which author. We also remove the ones written by Jay since the disputed papers are believed to be written by either Hamilton or Madison.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fed_papers &amp;lt;- federalist %&amp;gt;%
+  replace_na(list(author = &amp;quot;Unknown&amp;quot;)) %&amp;gt;%
+  filter(!(name %in% paste(&amp;quot;Federalist No.&amp;quot;, as.character(18:20))), author != &amp;quot;Jay&amp;quot;)
+
+fed_papers&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 77 x 6
+##    name              title  venue date       author text                  
+##    &amp;lt;chr&amp;gt;             &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt; &amp;lt;date&amp;gt;     &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt;                 
+##  1 Federalist No. 1  Gener… For … NA         Hamil… &amp;quot;To the People of the…
+##  2 Federalist No. 6  Conce… For … NA         Hamil… &amp;quot;To the People of the…
+##  3 Federalist No. 7  The S… For … NA         Hamil… &amp;quot;To the People of the…
+##  4 Federalist No. 8  The C… From… 1787-11-20 Hamil… &amp;quot;To the People of the…
+##  5 Federalist No. 9  The U… For … NA         Hamil… &amp;quot;To the People of the…
+##  6 Federalist No. 10 The S… From… 1787-11-23 Madis… &amp;quot;To the People of the…
+##  7 Federalist No. 11 The U… For … NA         Hamil… &amp;quot;To the People of the…
+##  8 Federalist No. 12 The U… From… 1787-11-27 Hamil… &amp;quot;To the People of the…
+##  9 Federalist No. 13 Advan… For … NA         Hamil… &amp;quot;To the People of the…
+## 10 Federalist No. 14 Objec… From… 1787-11-30 Madis… &amp;quot;To the People of the…
+## # ... with 67 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we have content written by 3 authors - Hamilton, Madison and ‘Unknown’, we can compare the styles of each author by calculating the delta metric using my &lt;code&gt;pairwise_delta&lt;/code&gt; implementation. Specifically, we can calculate the delta distance by considering relative frequencies of character ngrams/shingles that are evaluated by the &lt;code&gt;&#39;character_shingles&#39;&lt;/code&gt; argument passed to the &lt;code&gt;unnest_tokens&lt;/code&gt; method in &lt;code&gt;tidytext&lt;/code&gt;, which by default makes character trigrams.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Make an author-paper mapping that can be used later.
+fed_authors &amp;lt;- fed_papers %&amp;gt;%
+  select(name, author)
+
+fed_shingles &amp;lt;- fed_papers %&amp;gt;%
+  select(name, text) %&amp;gt;%
+  group_by(name) %&amp;gt;%
+  unnest_tokens(shingle, text, &amp;quot;character_shingles&amp;quot;) %&amp;gt;%
+  ungroup()
+
+fed_shingles %&amp;gt;%
+  count(shingle) %&amp;gt;%
+  arrange(-n)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6,067 x 2
+##    shingle     n
+##    &amp;lt;chr&amp;gt;   &amp;lt;int&amp;gt;
+##  1 the     21697
+##  2 ion      7321
+##  3 tio      5976
+##  4 ent      5388
+##  5 oft      5139
+##  6 and      5060
+##  7 fth      5060
+##  8 ati      3956
+##  9 nth      3879
+## 10 tha      3633
+## # ... with 6,057 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are over 6000 different character trigrams in the whole corpus, but we don’t have to consider all the trigrams as features. Burrows’ Delta was defined to include the n most frequent words (since it was defined only for words), so we can include the n most frequent features, or trigrams in our analysis. Let’s pick an arbritrary number, say 1000 (if this was a research paper, we would have evaluated the proper number of features by looking at maybe the clustering quality by cliustering on the delta and choosing n where the rand index is maximum)&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;top_shingles &amp;lt;- fed_shingles %&amp;gt;%
+  count(shingle) %&amp;gt;%
+  top_n(1000, n)
+
+top_shingles&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,004 x 2
+##    shingle     n
+##    &amp;lt;chr&amp;gt;   &amp;lt;int&amp;gt;
+##  1 abl      1099
+##  2 acc       239
+##  3 ace       395
+##  4 ach       483
+##  5 aco       374
+##  6 act       820
+##  7 ade       428
+##  8 adi       234
+##  9 adm       290
+## 10 adv       294
+## # ... with 994 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can now filter all our documents in &lt;code&gt;fed_shingles&lt;/code&gt; to have only the trigrams that are in the top 1000 trigrams of the entire corpus while simultaneously also computing the relative frequencies of the trigrams (do this prior to filtering).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fed_freq &amp;lt;- fed_shingles %&amp;gt;%
+  count(name, shingle) %&amp;gt;%
+  group_by(name) %&amp;gt;%
+  mutate(rel_freq = n/sum(n)) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  filter(shingle %in% top_shingles$shingle)
+
+fed_freq&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 73,910 x 4
+##    name             shingle     n rel_freq
+##    &amp;lt;chr&amp;gt;            &amp;lt;chr&amp;gt;   &amp;lt;int&amp;gt;    &amp;lt;dbl&amp;gt;
+##  1 Federalist No. 1 abl         9 0.00117 
+##  2 Federalist No. 1 acc         2 0.000260
+##  3 Federalist No. 1 ace         2 0.000260
+##  4 Federalist No. 1 ach         1 0.000130
+##  5 Federalist No. 1 act         5 0.000651
+##  6 Federalist No. 1 ade         4 0.000520
+##  7 Federalist No. 1 adi         3 0.000390
+##  8 Federalist No. 1 adm         2 0.000260
+##  9 Federalist No. 1 adv         3 0.000390
+## 10 Federalist No. 1 aff         3 0.000390
+## # ... with 73,900 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The pairwise family of functions in &lt;code&gt;widyr&lt;/code&gt; need 3 things as inputs: the item/document column where each value denotes an individual item which is repeated to account for each feature represented by a feature column (in long format as opposed to wide), and the values of the feautures corresponding to the document, once this is passed, the following workflow takes place:&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;/img/widyr-workflow.jpg&#34; /&gt;
+
+&lt;/div&gt;
+&lt;p&gt;Widyr essentially takes a long format data, widens it to something you normally see, a matrix format, performs the pairswise operation to return a pairwise matrix, and re-formats it into a long format to give item-item pairwise long tibble with the respective pairwise metric values.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fed_deltas &amp;lt;- fed_freq %&amp;gt;%
+  pairwise_delta(name, shingle, rel_freq)
+
+fed_deltas&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 5,852 x 3
+##    item1             item2            delta
+##    &amp;lt;chr&amp;gt;             &amp;lt;chr&amp;gt;            &amp;lt;dbl&amp;gt;
+##  1 Federalist No. 10 Federalist No. 1 1.02 
+##  2 Federalist No. 11 Federalist No. 1 1.07 
+##  3 Federalist No. 12 Federalist No. 1 1.04 
+##  4 Federalist No. 13 Federalist No. 1 1.18 
+##  5 Federalist No. 14 Federalist No. 1 1.00 
+##  6 Federalist No. 15 Federalist No. 1 0.948
+##  7 Federalist No. 16 Federalist No. 1 1.06 
+##  8 Federalist No. 17 Federalist No. 1 1.07 
+##  9 Federalist No. 21 Federalist No. 1 1.03 
+## 10 Federalist No. 22 Federalist No. 1 0.902
+## # ... with 5,842 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We now have each document, and its measure of &lt;em&gt;naive&lt;/em&gt; stylistic similarity(or deviance) with respect to every other document, we can use this to analyse the authorship of the 12 disputed papers.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;reaching-higher-dimensions&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Reaching higher dimensions&lt;/h2&gt;
+&lt;p&gt;Since Delta is a distance measure, the ones with lower values are close to each other, while ones with larger values are less similar. We can effectively visualize this using a multi-dimensional scaling method which takes a complete pairwise distance matrix and defines coordinates for each individual document (or item) such that the distance between every document with every other document is more or less maintained (there is some information loss).&lt;/p&gt;
+&lt;p&gt;MDS exists for base R but hasn’t been implemented for something like a widyr-processed tibble, to make this work, I implemented it so that it can become friendly with widyr based outputs, with the following code, you can see how a widyr function can be constructed!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;multi_scale &amp;lt;- function(tbl, item1, item2, value, k = 2) {
+  multi_scale_(tbl,
+               widyr:::col_name(substitute(item1)),
+               widyr:::col_name(substitute(item2)),
+               widyr:::col_name(substitute(value)),
+               k = 2)
+}
+
+
+multi_scale_ &amp;lt;- function(tbl, item1, item2, value, k = 2) {
+  tbl_matrix &amp;lt;- tbl %&amp;gt;%
+    spread(item2, widyr:::col_name(value), fill = 0) %&amp;gt;%
+    as.data.frame() %&amp;gt;%
+    remove_rownames() %&amp;gt;%
+    column_to_rownames(&amp;quot;item1&amp;quot;) %&amp;gt;%
+    as.matrix()
+
+  cmdscale(tbl_matrix, k = k) %&amp;gt;%
+    as.data.frame() %&amp;gt;%
+    rownames_to_column(&amp;quot;item&amp;quot;) %&amp;gt;%
+    as.tibble()
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can now simply pass the item-item pairwise delta tibble to multi_scale to return something that can easily work with ggplot2 to understand our results better:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fed_deltas %&amp;gt;%
+  multi_scale(item1, item2, delta) %&amp;gt;%
+  ggplot(aes(V1, V2)) +
+  geom_point()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/posts/2018-05-24-my-first-few-open-source-contributions-authorship-attribution-of-the-federalist-papers_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;1260&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This is great, but we surely need to represent each document by its author, and so we can add a color aesthetic by joining the multiscaled data to the author-paper mapping we created earlier.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fed_deltas %&amp;gt;%
+  multi_scale(item1, item2, delta) %&amp;gt;%
+  inner_join(fed_authors, by = c(item = &amp;quot;name&amp;quot;)) %&amp;gt;%
+  ggplot(aes(V1, V2, color = author)) +
+  geom_point(size = 2, alpha = 0.7) +
+  scale_y_continuous(limits = c(-0.7, 0.7), breaks = scales::pretty_breaks(10)) +
+  scale_x_continuous(limits = c(-0.7, 0.7), breaks = scales::pretty_breaks(10)) +
+  scale_color_manual(values = c(&amp;quot;#f26d5b&amp;quot;, &amp;quot;#FFBC42&amp;quot;, &amp;quot;#2b90d9&amp;quot;)) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = &amp;quot;bold&amp;quot;, size = rel(1.8), family = &amp;quot;Merriweather&amp;quot;),
+    plot.subtitle = element_text(size = rel(1.2), family = &amp;quot;Merriweather Light&amp;quot;, margin = margin(0,0,20,0)),
+    text = element_text(family = &amp;quot;Noto Sans CJK JP Light&amp;quot;),
+    axis.title.x = element_text(margin = margin(20, 0, 0, 0)),
+    axis.text = element_text(size = rel(1)),
+    legend.position = &amp;quot;top&amp;quot;,
+    panel.grid.minor = element_blank(),
+    legend.text = element_text(size = rel(1))
+  ) + 
+  labs(
+    title = &amp;quot;Authorship Analysis of the Federalist Papers&amp;quot;,
+    y = &amp;quot;Dimension 2&amp;quot;,
+    x = &amp;quot;Dimension 2&amp;quot;,
+    color = &amp;quot;&amp;quot;,
+    subtitle = &amp;quot;Papers with disputed authors lie far apart from Hamilton\nbut much closer to Madison&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/posts/2018-05-24-my-first-few-open-source-contributions-authorship-attribution-of-the-federalist-papers_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;1260&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This plot shows what I described earlier, a 2-dimension representation of the documents having the deviation from each other more or less maintained, accompanied by a little information loss. The dimensions don’t mean much and are arbritrarily defined, unlike PCA where you can study the contribution of each feature to the PCs. But what we see pretty much supports the conclusion by Mostellar and Wallace that the 12 papers with unknown authorship are far away from papers written by Hamilton but are closer to the papers authored by Madison.&lt;/p&gt;
+&lt;p&gt;In this post, I quickly demonstrated a naive analysis of the federalist papers problem using my open source contributions along with some very useful tools provided by tidytext, widyr and the tidyverse suite of packages. I enjoyed contributing to open source very much and hope to continue to do so now that I have the opportunity to learn more about Natural Language Processing as I venture into rigorous research as I begin my PhD studies at Purdue starting this fall. Please let me know if you’d like to know more about the work done in this blog post or anything else or if you have any feedback!&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Population growth and Doubling times with tidyverse</title>
+      <link>/post/population-growth-and-doubling-times-with-tidyverse/</link>
+      <pubDate>Wed, 14 Feb 2018 00:00:00 +0000</pubDate>
+      <guid>/post/population-growth-and-doubling-times-with-tidyverse/</guid>
+      <description>
+
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Roses are red, violets are blue&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;This is a forced rhyme, here’s blog post two!&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div id=&#34;background&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Background&lt;/h2&gt;
+&lt;p&gt;Ever since I worked on data about populations at my internship at Perscio, a healthcare data analysis firm in Indianapolis, as well as worked with a Professor of Demography and Social Policy on a paper about demographic data, I have gained interest in population problems - mostly through readings.&lt;/p&gt;
+&lt;p&gt;The best way to restart this journey would be to do so using what population problems often involve: Data analysis. In this post, we define and calculate population growth rates as well as doubling times of several countries and then finally produce intuitive visualizations of these numbers.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;loading-libraries-and-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Loading libraries and data&lt;/h2&gt;
+&lt;p&gt;The data used throughout this post is from &lt;a href=&#34;https://esa.un.org/unpd/wpp/Download/Standard/Population/&#34;&gt;United Nations’ Population Divison&lt;/a&gt; and consists of population numbers of all countries between 1970 and 2015 (in intervals of 5 years).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(kani)
+library(scales)
+library(geofacet)
+
+population_raw &amp;lt;- read_csv(&amp;quot;../../static/data/population.csv&amp;quot;)
+
+population_raw&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 273 x 68
+##    Country    code `1950` `1951` `1952` `1953` `1954` `1955` `1956` `1957`
+##    &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt; 
+##  1 WORLD       900 2 536… 2 583… 2 630… 2 677… 2 724… 2 772… 2 821… 2 871…
+##  2 More dev…   901 814 8… 824 2… 834 0… 844 2… 854 6… 865 0… 875 5… 885 9…
+##  3 Less dev…   902 1 721… 1 759… 1 796… 1 832… 1 869… 1 907… 1 945… 1 986…
+##  4 Least de…   941 195 2… 199 0… 202 9… 206 8… 211 0… 215 4… 220 0… 224 8…
+##  5 Less dev…   934 1 526… 1 560… 1 593… 1 626… 1 658… 1 691… 1 725… 1 761…
+##  6 Less dev…   948 1 157… 1 179… 1 203… 1 229… 1 256… 1 284… 1 314… 1 344…
+##  7 High-inc…  1503 672 8… 680 6… 688 8… 697 4… 706 2… 715 2… 724 3… 733 4…
+##  8 Middle-i…  1517 1 734… 1 772… 1 808… 1 844… 1 880… 1 916… 1 954… 1 992…
+##  9 Upper-mi…  1502 956 2… 980 1… 1 001… 1 022… 1 041… 1 060… 1 079… 1 099…
+## 10 Lower-mi…  1501 778 2… 792 1… 807 0… 822 6… 839 1… 856 4… 874 4… 893 2…
+## # ... with 263 more rows, and 58 more variables: `1958` &amp;lt;chr&amp;gt;,
+## #   `1959` &amp;lt;chr&amp;gt;, `1960` &amp;lt;chr&amp;gt;, `1961` &amp;lt;chr&amp;gt;, `1962` &amp;lt;chr&amp;gt;, `1963` &amp;lt;chr&amp;gt;,
+## #   `1964` &amp;lt;chr&amp;gt;, `1965` &amp;lt;chr&amp;gt;, `1966` &amp;lt;chr&amp;gt;, `1967` &amp;lt;chr&amp;gt;, `1968` &amp;lt;chr&amp;gt;,
+## #   `1969` &amp;lt;chr&amp;gt;, `1970` &amp;lt;chr&amp;gt;, `1971` &amp;lt;chr&amp;gt;, `1972` &amp;lt;chr&amp;gt;, `1973` &amp;lt;chr&amp;gt;,
+## #   `1974` &amp;lt;chr&amp;gt;, `1975` &amp;lt;chr&amp;gt;, `1976` &amp;lt;chr&amp;gt;, `1977` &amp;lt;chr&amp;gt;, `1978` &amp;lt;chr&amp;gt;,
+## #   `1979` &amp;lt;chr&amp;gt;, `1980` &amp;lt;chr&amp;gt;, `1981` &amp;lt;chr&amp;gt;, `1982` &amp;lt;chr&amp;gt;, `1983` &amp;lt;chr&amp;gt;,
+## #   `1984` &amp;lt;chr&amp;gt;, `1985` &amp;lt;chr&amp;gt;, `1986` &amp;lt;chr&amp;gt;, `1987` &amp;lt;chr&amp;gt;, `1988` &amp;lt;chr&amp;gt;,
+## #   `1989` &amp;lt;chr&amp;gt;, `1990` &amp;lt;chr&amp;gt;, `1991` &amp;lt;chr&amp;gt;, `1992` &amp;lt;chr&amp;gt;, `1993` &amp;lt;chr&amp;gt;,
+## #   `1994` &amp;lt;chr&amp;gt;, `1995` &amp;lt;chr&amp;gt;, `1996` &amp;lt;chr&amp;gt;, `1997` &amp;lt;chr&amp;gt;, `1998` &amp;lt;chr&amp;gt;,
+## #   `1999` &amp;lt;chr&amp;gt;, `2000` &amp;lt;chr&amp;gt;, `2001` &amp;lt;chr&amp;gt;, `2002` &amp;lt;chr&amp;gt;, `2003` &amp;lt;chr&amp;gt;,
+## #   `2004` &amp;lt;chr&amp;gt;, `2005` &amp;lt;chr&amp;gt;, `2006` &amp;lt;chr&amp;gt;, `2007` &amp;lt;chr&amp;gt;, `2008` &amp;lt;chr&amp;gt;,
+## #   `2009` &amp;lt;chr&amp;gt;, `2010` &amp;lt;chr&amp;gt;, `2011` &amp;lt;chr&amp;gt;, `2012` &amp;lt;chr&amp;gt;, `2013` &amp;lt;chr&amp;gt;,
+## #   `2014` &amp;lt;chr&amp;gt;, `2015` &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The data looks a little weird:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;It’s in a wide format than a long one, each year seems to be a single column.&lt;/li&gt;
+&lt;li&gt;The population values look to be parsed as characters, this is mostly because I didn’t provide any parsing formats to &lt;code&gt;read_csv()&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;tidying-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Tidying data&lt;/h2&gt;
+&lt;p&gt;We can all fix this using some of the helper functions in the &lt;code&gt;tidyverse&lt;/code&gt; package!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;population &amp;lt;- population_raw %&amp;gt;%
+  gather(`1950`:`2015`, key = &amp;quot;year&amp;quot;, value = &amp;quot;population&amp;quot;) %&amp;gt;%
+  mutate(
+    population = as.numeric(str_replace_all(population, &amp;quot; &amp;quot;, &amp;quot;&amp;quot;)),
+    year = as.numeric(year)
+  )
+
+population&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 18,018 x 4
+##    Country                                           code  year population
+##    &amp;lt;chr&amp;gt;                                            &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;
+##  1 WORLD                                              900  1950    2536275
+##  2 More developed regions                             901  1950     814865
+##  3 Less developed regions                             902  1950    1721410
+##  4 Least developed countries                          941  1950     195259
+##  5 Less developed regions, excluding least develop…   934  1950    1526151
+##  6 Less developed regions, excluding China            948  1950    1157197
+##  7 High-income countries                             1503  1950     672896
+##  8 Middle-income countries                           1517  1950    1734481
+##  9 Upper-middle-income countries                     1502  1950     956204
+## 10 Lower-middle-income countries                     1501  1950     778277
+## # ... with 18,008 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that the data is more readable, we can look at what each column describes:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Country&lt;/strong&gt;: Country names (also contains data about regions and world)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;code&lt;/strong&gt;: Country code specified by the UN&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;population&lt;/strong&gt;: Total population of the country in 1000s&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Year&lt;/strong&gt;: .. The year&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;As an example, we can now plot how the population grew for the world, as well as countries with different income situations:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;population %&amp;gt;%
+  filter(str_detect(Country, &amp;quot;WORLD|income&amp;quot;)) %&amp;gt;%
+  ggplot(aes(year, population/1000, group = Country, color = Country)) + 
+  geom_line(size = 1) + 
+  scale_y_continuous(breaks = pretty_breaks(n = 6)) +
+  scale_x_continuous(breaks = pretty_breaks(n = 6)) +
+  scale_color_kani() + 
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(face = &amp;quot;bold&amp;quot;, size = rel(1.8), family = &amp;quot;Merriweather&amp;quot;),
+    plot.subtitle = element_text(size = rel(1.2), family = &amp;quot;Merriweather Light&amp;quot;, margin = margin(0,0,20,0)),
+    text = element_text(family = &amp;quot;Noto Sans CJK JP Light&amp;quot;),
+    axis.title.x = element_text(margin = margin(20, 0, 0, 0)),
+    axis.text = element_text(size = rel(1)),
+    legend.position = &amp;quot;top&amp;quot;,
+    panel.grid.minor = element_blank(),
+    legend.text = element_text(size = rel(0.8))
+  ) + 
+  labs(
+    title = &amp;quot;Population growth rates in countries\ndifferentiated by income&amp;quot;,
+    y = &amp;quot;Population per million&amp;quot;,
+    x = &amp;quot;Year&amp;quot;,
+    color = &amp;quot;&amp;quot;,
+    subtitle = &amp;quot;Middle income countries have been experiencing\nhigher population growth than other countries&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/posts/2018-01-29-population-growth-and-doubling-times-with-tidyverse_files/figure-html/example%20plot-1.png&#34; width=&#34;1260&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;population-growth-rate&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Population Growth Rate&lt;/h2&gt;
+&lt;p&gt;Studying total population numbers is great, but what’s even useful is to look at the &lt;em&gt;rate&lt;/em&gt; by which the population changes in regions. The population growth rate of a country can be defined as the rate at which the number of individuals changes over a period of time expressed as a percentage of the population at the beginning of that time period.&lt;/p&gt;
+&lt;p&gt;Mathematically,&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+Population\ growth \ rate = \frac{Pop(t_2) - Pop(t_1)}{Pop(t_1)(t_2 - t_1)}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where,&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(t_1\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(t_2\)&lt;/span&gt; are beginning and end times of the time period. In our data these are successive years so the difference is always 1.&lt;/p&gt;
+&lt;p&gt;and&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(Pop(t)\)&lt;/span&gt; is the number of individuals at time &lt;span class=&#34;math inline&#34;&gt;\(t\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;We can use the &lt;code&gt;lag()&lt;/code&gt; function in &lt;code&gt;dplyr&lt;/code&gt; to calculate the yearly growth rate for each country/region in the dataset. As an example, we can see the population growth rate of the world starting from 1950 as shown in this plot:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;population %&amp;gt;%
+  filter(Country == &amp;quot;WORLD&amp;quot;) %&amp;gt;%
+  mutate(growth_rate = population/lag(population, 1) - 1) %&amp;gt;%
+  ggplot(aes(year, growth_rate)) +
+  geom_line(size = 1, color = &amp;quot;#f15c5c&amp;quot;) + 
+  scale_y_continuous(labels = percent_format(), limits = c(0, 0.022)) +
+  scale_x_continuous(breaks = pretty_breaks(n = 6)) + 
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(face = &amp;quot;bold&amp;quot;, size = rel(1.8), family = &amp;quot;Merriweather&amp;quot;),
+    plot.subtitle = element_text(size = rel(1.2), family = &amp;quot;Merriweather Light&amp;quot;, margin = margin(0,0,20,0)),
+    text = element_text(family = &amp;quot;Noto Sans CJK JP Light&amp;quot;),
+    axis.title.x = element_text(margin = margin(20, 0, 0, 0)),
+    axis.text = element_text(size = rel(1)),
+    panel.grid.minor = element_blank()
+  ) + 
+  labs(
+    x = &amp;quot;Year&amp;quot;,
+    y = &amp;quot;Population Growth Rate (%)&amp;quot;,
+    title = &amp;quot;Population Growth Rate of the World&amp;quot;,
+    subtitle = &amp;quot;Average yearly change in population between 1950-2015&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/posts/2018-01-29-population-growth-and-doubling-times-with-tidyverse_files/figure-html/example%20growth%20rate-1.png&#34; width=&#34;1260&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;But this was for one region in the entire dataset! How can we fit this model for all regions? Easy, we just use &lt;code&gt;map()&lt;/code&gt; from the &lt;code&gt;purrr&lt;/code&gt; package which lets us extend a function to different kinds of groups within the data which in this case are countries/regions. This can be done by first nesting all the yearly population changes for each country as a dataframe, fitting the desired function for each country, and then unnesting to get rates for all countries.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;growth_rate &amp;lt;- function(df) {
+  return(df %&amp;gt;% transmute(growth_rate = population/lag(population, 1) - 1))
+}
+
+population_growth &amp;lt;- population %&amp;gt;%
+  group_by(Country) %&amp;gt;%
+  nest() %&amp;gt;%
+  mutate(growth = map(data, growth_rate)) %&amp;gt;%
+  unnest()
+
+population_growth&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 18,018 x 5
+##    Country  code  year population growth_rate
+##    &amp;lt;chr&amp;gt;   &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;       &amp;lt;dbl&amp;gt;
+##  1 WORLD     900  1950    2536275     NA     
+##  2 WORLD     900  1951    2583817      0.0187
+##  3 WORLD     900  1952    2630584      0.0181
+##  4 WORLD     900  1953    2677230      0.0177
+##  5 WORLD     900  1954    2724302      0.0176
+##  6 WORLD     900  1955    2772243      0.0176
+##  7 WORLD     900  1956    2821383      0.0177
+##  8 WORLD     900  1957    2871952      0.0179
+##  9 WORLD     900  1958    2924081      0.0182
+## 10 WORLD     900  1959    2977825      0.0184
+## # ... with 18,008 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s look at the first plot in this post, but from the perspective of population growth rate:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;population_growth %&amp;gt;%
+  filter(str_detect(Country, &amp;quot;WORLD|income&amp;quot;)) %&amp;gt;%
+  ggplot(aes(year, growth_rate, group = Country, color = Country)) +
+  geom_line(size = 1) + 
+  scale_y_continuous(breaks = seq(0, 0.03, by = 0.005), limits = c(0, 0.03), labels = percent_format()) +
+  scale_x_continuous(breaks = pretty_breaks(n = 6)) +
+  scale_color_kani() + 
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(face = &amp;quot;bold&amp;quot;, size = rel(1.8), family = &amp;quot;Merriweather&amp;quot;),
+    plot.subtitle = element_text(size = rel(1.2), family = &amp;quot;Merriweather Light&amp;quot;, margin = margin(0,0,20,0)),
+    text = element_text(family = &amp;quot;Noto Sans CJK JP Light&amp;quot;),
+    axis.title.x = element_text(margin = margin(20, 0, 0, 0)),
+    axis.text = element_text(size = rel(1)),
+    legend.position = &amp;quot;top&amp;quot;,
+    panel.grid.minor = element_blank(),
+    legend.text = element_text(size = rel(0.8))
+  ) + 
+  labs(
+    title = &amp;quot;Population growth rates in countries\ndifferentiated by income&amp;quot;,
+    y = &amp;quot;Population Growth Rate (%)&amp;quot;,
+    x = &amp;quot;Year&amp;quot;,
+    color = &amp;quot;&amp;quot;,
+    subtitle = &amp;quot;As the world population growth rate falls,\nlow income countries are experiencing higher growth rates.&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/posts/2018-01-29-population-growth-and-doubling-times-with-tidyverse_files/figure-html/growth%20rates%20in%20selected%20regions-1.png&#34; width=&#34;1260&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We see that while the low-income countries line was at the bottom of the chart in the first plot indicating their population numbers havent gone up by much, they still experience the highest percentage changes in their population. Low income counties started at 1.4% growth rate and then jumped up to being the highest in comparison to countries with higher income, 2.7%. This is mostly because of a dual effect: high birth rates and presence of a younger population compared to the rest, but I will most probably explore this further in future posts.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;doubling-times&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Doubling Times&lt;/h2&gt;
+&lt;p&gt;We now focus on doubling times, or the metric which looks at how long does it take for a region to double its population. This is important because the onset of modernity (starting in mid 20th century), something that brought in better standards of living and health has resulted in a rapid population growth, but that historical growth has now slowed down greatly. The peak growth rate was in 1960s at about 2.1% and has since fallen to about half of that. It would be interesting to see how long it took for the population to double in the 60s versus now.&lt;/p&gt;
+&lt;p&gt;Mathematically, the doubling time for a given year can be given as follows:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+Doubling \ Time = \frac{\ln(2)}{r_t}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Where &lt;span class=&#34;math inline&#34;&gt;\(r\)&lt;/span&gt; is the growth rate of the region at time &lt;span class=&#34;math inline&#34;&gt;\(t\)&lt;/span&gt;. We assume that human population growth follows a exponential curve that explains the &lt;span class=&#34;math inline&#34;&gt;\(\ln(2)\)&lt;/span&gt; component.&lt;/p&gt;
+&lt;p&gt;We can now use this and fit it to all regions described in the dataset.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;population_rates &amp;lt;- population_growth %&amp;gt;%
+  group_by(Country) %&amp;gt;%
+  nest() %&amp;gt;%
+  mutate(doubling_time = map(data, function(df) {return(log(2)/df$growth_rate)})) %&amp;gt;%
+  unnest()
+
+population_rates&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 18,018 x 6
+##    Country doubling_time  code  year population growth_rate
+##    &amp;lt;chr&amp;gt;           &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;       &amp;lt;dbl&amp;gt;
+##  1 WORLD            NA     900  1950    2536275     NA     
+##  2 WORLD            37.0   900  1951    2583817      0.0187
+##  3 WORLD            38.3   900  1952    2630584      0.0181
+##  4 WORLD            39.1   900  1953    2677230      0.0177
+##  5 WORLD            39.4   900  1954    2724302      0.0176
+##  6 WORLD            39.4   900  1955    2772243      0.0176
+##  7 WORLD            39.1   900  1956    2821383      0.0177
+##  8 WORLD            38.7   900  1957    2871952      0.0179
+##  9 WORLD            38.2   900  1958    2924081      0.0182
+## 10 WORLD            37.7   900  1959    2977825      0.0184
+## # ... with 18,008 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s look at the doubling times of countries based differentiated by income levels as an example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;population_rates %&amp;gt;%
+  filter(str_detect(Country, &amp;quot;WORLD|income&amp;quot;)) %&amp;gt;%
+  ggplot(aes(year, doubling_time, group = Country, color = Country)) +
+  geom_line(size = 1) + 
+  scale_y_continuous(breaks = seq(0, 150, by = 25), limits = c(0, 150)) +
+  scale_x_continuous(breaks = pretty_breaks(n = 6)) +
+  scale_color_kani() + 
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(face = &amp;quot;bold&amp;quot;, size = rel(1.8), family = &amp;quot;Merriweather&amp;quot;),
+    plot.subtitle = element_text(size = rel(1.2), family = &amp;quot;Merriweather Light&amp;quot;, margin = margin(0,0,20,0)),
+    text = element_text(family = &amp;quot;Noto Sans CJK JP Light&amp;quot;),
+    axis.title.x = element_text(margin = margin(20, 0, 0, 0)),
+    axis.text = element_text(size = rel(1)),
+    legend.position = &amp;quot;top&amp;quot;,
+    panel.grid.minor = element_blank(),
+    legend.text = element_text(size = rel(0.8))
+  ) + 
+  labs(
+    title = &amp;quot;Population Doubling times in the world&amp;quot;,
+    subtitle = &amp;quot;Higher income countries take the longest time to double their\npopulation while the lower income ones take the least time&amp;quot;,
+    y = &amp;quot;Doubling time in years&amp;quot;,
+    x = &amp;quot;Year&amp;quot;,
+    color = &amp;quot;&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/posts/2018-01-29-population-growth-and-doubling-times-with-tidyverse_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;1260&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;visualizing-growth-and-doubling-times-in-different-regions&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Visualizing Growth and Doubling Times in Different regions&lt;/h2&gt;
+&lt;p&gt;So far, we’ve seen growth rates in countries grouped together in bins or buckets based on income levels, what if we wanted to decompose these and actually look at countries? We can always select a bunch of countries and show them in a single graph, or even make separate graphs and show them in the same plot as different boxes using &lt;code&gt;facet_wrap()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This is great, but it can also mask regional patterns, what if all Scandinavian countries experienced similar trends? What is an intelligent way to group them together? One way is to manually do it, but this is where the &lt;code&gt;geofacet&lt;/code&gt; package comes into play. With the &lt;code&gt;geofacet&lt;/code&gt; package, one can create a grid as we will see below and pre-define the positions of each country/region so that they can mimic a world map!&lt;/p&gt;
+&lt;p&gt;As an example, we look at European Countries:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;europe_grid &amp;lt;- data.frame(
+  row = c(1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 9, 9),
+  col = c(1, 4, 5, 6, 7, 1, 2, 5, 7, 8, 4, 5, 6, 7, 8, 2, 3, 4, 5, 6, 7, 8, 1, 2, 4, 5, 6, 7, 8, 4, 6, 7, 8, 7, 8, 6, 7, 8),
+  code = c(&amp;quot;ISL&amp;quot;, &amp;quot;NOR&amp;quot;, &amp;quot;SWE&amp;quot;, &amp;quot;FIN&amp;quot;, &amp;quot;EST&amp;quot;, &amp;quot;IRL&amp;quot;, &amp;quot;GBR&amp;quot;, &amp;quot;DEN&amp;quot;, &amp;quot;LAT&amp;quot;, &amp;quot;RUS&amp;quot;, &amp;quot;NLD&amp;quot;, &amp;quot;DEU&amp;quot;, &amp;quot;POL&amp;quot;, &amp;quot;LTU&amp;quot;, &amp;quot;BLR&amp;quot;, &amp;quot;FRA&amp;quot;, &amp;quot;BEL&amp;quot;, &amp;quot;LUX&amp;quot;, &amp;quot;AUT&amp;quot;, &amp;quot;CZE&amp;quot;, &amp;quot;SVK&amp;quot;, &amp;quot;UKR&amp;quot;, &amp;quot;PRT&amp;quot;, &amp;quot;ESP&amp;quot;, &amp;quot;CHE&amp;quot;, &amp;quot;SVN&amp;quot;, &amp;quot;HUN&amp;quot;, &amp;quot;ROU&amp;quot;, &amp;quot;MDA&amp;quot;, &amp;quot;ITA&amp;quot;, &amp;quot;HRV&amp;quot;, &amp;quot;SRB&amp;quot;, &amp;quot;BGR&amp;quot;, &amp;quot;MNE&amp;quot;, &amp;quot;MKD&amp;quot;, &amp;quot;BIH&amp;quot;, &amp;quot;ALB&amp;quot;, &amp;quot;GRC&amp;quot;),
+  name = c(&amp;quot;Iceland&amp;quot;, &amp;quot;Norway&amp;quot;, &amp;quot;Sweden&amp;quot;, &amp;quot;Finland&amp;quot;, &amp;quot;Estonia&amp;quot;, &amp;quot;Ireland&amp;quot;, &amp;quot;United Kingdom&amp;quot;, &amp;quot;Denmark&amp;quot;, &amp;quot;Latvia&amp;quot;, &amp;quot;Russian Federation&amp;quot;, &amp;quot;Netherlands&amp;quot;, &amp;quot;Germany&amp;quot;, &amp;quot;Poland&amp;quot;, &amp;quot;Lithuania&amp;quot;, &amp;quot;Belarus&amp;quot;, &amp;quot;France&amp;quot;, &amp;quot;Belgium&amp;quot;, &amp;quot;Luxembourg&amp;quot;, &amp;quot;Austria&amp;quot;, &amp;quot;Czechia&amp;quot;, &amp;quot;Slovakia&amp;quot;, &amp;quot;Ukraine&amp;quot;, &amp;quot;Portugal&amp;quot;, &amp;quot;Spain&amp;quot;, &amp;quot;Switzerland&amp;quot;, &amp;quot;Slovenia&amp;quot;, &amp;quot;Hungary&amp;quot;, &amp;quot;Romania&amp;quot;, &amp;quot;Republic of Moldova&amp;quot;, &amp;quot;Italy&amp;quot;, &amp;quot;Croatia&amp;quot;, &amp;quot;Serbia&amp;quot;, &amp;quot;Bulgaria&amp;quot;, &amp;quot;Montenegro&amp;quot;, &amp;quot;TFYR Macedonia&amp;quot;, &amp;quot;Bosnia and Herzegovina&amp;quot;, &amp;quot;Albania&amp;quot;, &amp;quot;Greece&amp;quot;),
+  stringsAsFactors = FALSE
+)
+
+euro_facets &amp;lt;- population_rates %&amp;gt;%
+  filter(Country %in% europe_grid$name) %&amp;gt;%
+  ggplot(aes(year, growth_rate, group = Country)) + 
+  geom_line(color = &amp;quot;#79bd9a&amp;quot;, size = 1) + 
+  scale_y_continuous(labels = percent_format()) +
+  facet_geo(~Country, grid = europe_grid) + 
+  theme_kani() + 
+  theme(
+    plot.title = element_text(face = &amp;quot;bold&amp;quot;, size = rel(1.8), family = &amp;quot;Merriweather&amp;quot;),
+    plot.subtitle = element_text(size = rel(1.2), family = &amp;quot;Merriweather Light&amp;quot;, margin = margin(0,0,20,0)),
+    text = element_text(family = &amp;quot;Noto Sans CJK JP Light&amp;quot;),
+    axis.title.x = element_text(margin = margin(20, 0, 0, 0)),
+    axis.text = element_text(size = rel(1)),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(fill = &amp;quot;white&amp;quot;),
+    panel.background = element_rect(fill = &amp;quot;white&amp;quot;),
+    strip.background = element_rect(fill = &amp;quot;white&amp;quot;),
+    strip.text.x = element_text(face = &amp;quot;bold&amp;quot;)
+  ) + 
+  labs(
+    title = &amp;quot;Population growth rates in Europe&amp;quot;,
+    y = &amp;quot;Population Growth Rate (%)&amp;quot;,
+    x = &amp;quot;&amp;quot;,
+    color = &amp;quot;&amp;quot;,
+    subtitle = &amp;quot;Europe has been facing a bit of a population decline. &amp;quot;
+  )
+
+ggsave(&amp;quot;../../static/img/eu_population_growth.png&amp;quot;, euro_facets, height = 15, width = 20)
+
+euro_facets&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/posts/2018-01-29-population-growth-and-doubling-times-with-tidyverse_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;2700&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Check &lt;a href=&#34;/img/eu_population_growth.png&#34;&gt;enlarged version&lt;/a&gt;. We see that most of Europe is beginning to enter the population decline phase, there is a small upward trend in some countries, but this is mostly because of the mass-migration. Most of Europe has already entered the phase of population decline.&lt;/p&gt;
+&lt;p&gt;What about the doubling times in South America?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;south_america_grid &amp;lt;- data.frame(
+  row = c(1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4),
+  col = c(1, 2, 3, 4, 5, 2, 3, 4, 5, 3, 4, 5, 4),
+  code = c(&amp;quot;COL&amp;quot;, &amp;quot;VEN&amp;quot;, &amp;quot;GUY&amp;quot;, &amp;quot;SUR&amp;quot;, &amp;quot;GUF&amp;quot;, &amp;quot;ECU&amp;quot;, &amp;quot;PER&amp;quot;, &amp;quot;BOL&amp;quot;, &amp;quot;BRA&amp;quot;, &amp;quot;CHL&amp;quot;, &amp;quot;PRY&amp;quot;, &amp;quot;URY&amp;quot;, &amp;quot;ARG&amp;quot;),
+  name = c(&amp;quot;Colombia&amp;quot;, &amp;quot;Venezuela (Bolivarian Republic of)&amp;quot;, &amp;quot;Guyana&amp;quot;, &amp;quot;Suriname&amp;quot;, &amp;quot;French Guiana&amp;quot;, &amp;quot;Ecuador&amp;quot;, &amp;quot;Peru&amp;quot;, &amp;quot;Bolivia (Plurinational State of)&amp;quot;, &amp;quot;Brazil&amp;quot;, &amp;quot;Chile&amp;quot;, &amp;quot;Paraguay&amp;quot;, &amp;quot;Uruguay&amp;quot;, &amp;quot;Argentina&amp;quot;),
+  stringsAsFactors = FALSE
+)
+
+sa_facets &amp;lt;- population_rates %&amp;gt;%
+  filter(Country %in% south_america_grid$name) %&amp;gt;%
+  ggplot(aes(year, doubling_time, group = Country)) + 
+  geom_line(color = &amp;quot;#8283a7&amp;quot;, size = 1) + 
+  scale_x_continuous(breaks = seq(1950, 2010, length = 5)) +
+  scale_y_continuous(breaks = pretty_breaks(7)) +
+  facet_geo(~Country, grid = south_america_grid, scales = &amp;quot;free&amp;quot;) + 
+  theme_kani() + 
+  theme(
+    plot.title = element_text(face = &amp;quot;bold&amp;quot;, size = rel(1.8), family = &amp;quot;Merriweather&amp;quot;),
+    plot.subtitle = element_text(size = rel(1.2), family = &amp;quot;Merriweather Light&amp;quot;, margin = margin(0,0,20,0)),
+    text = element_text(family = &amp;quot;Noto Sans CJK JP Light&amp;quot;),
+    axis.title.x = element_text(margin = margin(20, 0, 0, 0)),
+    axis.text = element_text(size = rel(1)),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(fill = &amp;quot;white&amp;quot;),
+    panel.background = element_rect(fill = &amp;quot;white&amp;quot;),
+    strip.background = element_rect(fill = &amp;quot;white&amp;quot;),
+    strip.text.x = element_text(face = &amp;quot;bold&amp;quot;, size = rel(1.1))
+  ) + 
+  labs(
+    title = &amp;quot;Population Doubling Times in South America&amp;quot;,
+    x = &amp;quot;&amp;quot;,
+    y = &amp;quot;Doubling Time in years&amp;quot;,
+    color = &amp;quot;&amp;quot;,
+    subtitle = &amp;quot;More stable trend for larger countries, less so for the smaller ones&amp;quot;
+  )
+
+ggsave(&amp;quot;../../static/img/sa_doubling.png&amp;quot;, sa_facets, height = 12, width = 16)
+
+sa_facets&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/posts/2018-01-29-population-growth-and-doubling-times-with-tidyverse_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;2880&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Check &lt;a href=&#34;/img/sa_doubling.png&#34;&gt;enlarged version&lt;/a&gt;. The population boom between 60s and 80s did affect most of South America since there was a decline in the doubling times (for at least the larger countries, by size). This was also a time when the fastest doubling of the world population happened, from 2.5 billion people to 5 billion people in just 37 years (1950 - 1987)! The UN projections with the most likely scenario (SSP2) indicate that by 2088, it will take another 100 years for the world population to double (Our World in Data, 2015).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;This was a simple post that introduces some helpful rates and measures to understand population change in the world. The visualizations in the post showed how countries with different income levels (as categorized by the UN) differ in their respective population growth rates as well as doubling times, and then we further decomposed these groupings by plotting the country specific measures using &lt;code&gt;geofacet&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;It is exciting to see what the future holds in terms of population changes and hope to continue working with more complex demographic data to produce interesting analyses to blog about! I am very happy to get feedback on this post so please reach out to me via &lt;a href=&#34;https://twitter.com/iamasharkskin&#34;&gt;Twitter&lt;/a&gt; if you have any comments to make!&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Attitudes of employees towards mental health in the tech workplace</title>
+      <link>/post/osmi-mental-health-in-tech-survey-data/</link>
+      <pubDate>Wed, 03 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>/post/osmi-mental-health-in-tech-survey-data/</guid>
+      <description>
+
+
+&lt;p&gt;Understanding and accepting mental health as an issue at the workplace has become ever so crucial in recent times. Mental illnesses like depression and anxiety can have a significant economic impact; the estimated cost to the global economy is US$ 1 trillion per year in lost productivity (&lt;a href=&#34;http://www.who.int/mental_health/in_the_workplace/en/&#34;&gt;source&lt;/a&gt;). Open Sourcing Mental Illness (&lt;a href=&#34;https://osmihelp.org/&#34;&gt;OSMI&lt;/a&gt;) is a non profit organization that focuses on raising awareness, education and providing resources to support mental wellness at workplaces, especially in the tech industry. In 2014, they conducted their first ever survey which had questions pertaining to how mental health is perceived at tech workplaces by employees and their employers.&lt;/p&gt;
+&lt;p&gt;This survey had over 1200 responses and the data from these responses was made public, which gives us an interesting opportunity to analyze the attitudes of tech-workers from 48 different countries towards mental health.&lt;/p&gt;
+&lt;div id=&#34;loading-libraries-and-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Loading libraries and data&lt;/h2&gt;
+&lt;p&gt;Let’s load libraries important for this analysis as well as the data which can be downloaded from kaggle: &lt;a href=&#34;https://www.kaggle.com/osmi/mental-health-in-tech-survey/data&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(ebbr)
+
+mental_health &amp;lt;- read_csv(&amp;quot;../../static/data/mental-health.csv&amp;quot;)
+
+skimr::skim(mental_health)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Skim summary statistics
+##  n obs: 1259 
+##  n variables: 27 
+## 
+## Variable type: character 
+##                     variable missing complete    n min  max empty n_unique
+## 1                  anonymity       0     1259 1259   2   10     0        3
+## 2                   benefits       0     1259 1259   2   10     0        3
+## 3               care_options       0     1259 1259   2    8     0        3
+## 4                   comments    1096      163 1259   1 3548     0      159
+## 5                    Country       0     1259 1259   5   22     0       48
+## 6                  coworkers       0     1259 1259   2   12     0        3
+## 7             family_history       0     1259 1259   2    3     0        2
+## 8                     Gender       0     1259 1259   1   46     0       47
+## 9                      leave       0     1259 1259   9   18     0        5
+## 10 mental_health_consequence       0     1259 1259   2    5     0        3
+## 11   mental_health_interview       0     1259 1259   2    5     0        3
+## 12        mental_vs_physical       0     1259 1259   2   10     0        3
+## 13              no_employees       0     1259 1259   3   14     0        6
+## 14           obs_consequence       0     1259 1259   2    3     0        2
+## 15   phys_health_consequence       0     1259 1259   2    5     0        3
+## 16     phys_health_interview       0     1259 1259   2    5     0        3
+## 17               remote_work       0     1259 1259   2    3     0        2
+## 18                 seek_help       0     1259 1259   2   10     0        3
+## 19             self_employed      18     1241 1259   2    3     0        2
+## 20                     state     515      744 1259   2    2     0       45
+## 21                supervisor       0     1259 1259   2   12     0        3
+## 22              tech_company       0     1259 1259   2    3     0        2
+## 23                 treatment       0     1259 1259   2    3     0        2
+## 24          wellness_program       0     1259 1259   2   10     0        3
+## 25            work_interfere     264      995 1259   5    9     0        4
+## 
+## Variable type: numeric 
+##   variable missing complete    n    mean      sd   min p25 median p75   max
+## 1      Age       0     1259 1259 7.9e+07 2.8e+09 -1726  27     31  36 1e+11
+##       hist
+## 1 ▇▁▁▁▁▁▁▁
+## 
+## Variable type: POSIXct 
+##    variable missing complete    n        min        max     median n_unique
+## 1 Timestamp       0     1259 1259 2014-08-27 2016-02-01 2014-08-28     1246&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;skimr&lt;/code&gt; package really helps in showing a human-readable, compact summary overview of the data which allows identifying missing values in columns among the other benefits it provides.&lt;/p&gt;
+&lt;p&gt;The data is mostly categorical and in fact includes all responses to questions that correspond to the column names. The column names obviously do not look like questions, but this is because the maintainers of the data have assigned each question a column name and this list can be found &lt;a href=&#34;https://www.kaggle.com/osmi/mental-health-in-tech-survey&#34;&gt;here&lt;/a&gt;. There are columns with missing data, columns with bizzare values, and columns with values that we can group together (&lt;code&gt;Gender&lt;/code&gt;). We can now start our adventure in exploring this data by tidying up these columns.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mental_health &amp;lt;- mental_health  %&amp;gt;%
+  select(-c(state, comments, Timestamp)) %&amp;gt;%
+  filter(between(Age, 18, 90)) %&amp;gt;%
+  mutate(
+    Gender = case_when(
+      str_detect(Gender, regex(&amp;quot;trans|fluid|androgynous&amp;quot;, ignore_case = T)) == T ~ &amp;quot;gender_variance&amp;quot;,
+      str_detect(Gender, regex(&amp;quot;female|femail|f|woman|femake&amp;quot;, ignore_case = T)) == T ~ &amp;quot;female&amp;quot;,
+      str_detect(Gender, regex(&amp;quot;mal*|m|mail|man|guy&amp;quot;, ignore_case = T)) == T ~ &amp;quot;male&amp;quot;,
+      TRUE ~ &amp;quot;gender_variance&amp;quot;
+    )
+  ) %&amp;gt;%
+  replace_na(list(
+    self_employed = &amp;quot;unknown&amp;quot;,
+    work_interfere = &amp;quot;unknown&amp;quot;
+  ))
+
+skimr::skim(mental_health)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Skim summary statistics
+##  n obs: 1251 
+##  n variables: 24 
+## 
+## Variable type: character 
+##                     variable missing complete    n min max empty n_unique
+## 1                  anonymity       0     1251 1251   2  10     0        3
+## 2                   benefits       0     1251 1251   2  10     0        3
+## 3               care_options       0     1251 1251   2   8     0        3
+## 4                    Country       0     1251 1251   5  22     0       46
+## 5                  coworkers       0     1251 1251   2  12     0        3
+## 6             family_history       0     1251 1251   2   3     0        2
+## 7                     Gender       0     1251 1251   4  15     0        3
+## 8                      leave       0     1251 1251   9  18     0        5
+## 9  mental_health_consequence       0     1251 1251   2   5     0        3
+## 10   mental_health_interview       0     1251 1251   2   5     0        3
+## 11        mental_vs_physical       0     1251 1251   2  10     0        3
+## 12              no_employees       0     1251 1251   3  14     0        6
+## 13           obs_consequence       0     1251 1251   2   3     0        2
+## 14   phys_health_consequence       0     1251 1251   2   5     0        3
+## 15     phys_health_interview       0     1251 1251   2   5     0        3
+## 16               remote_work       0     1251 1251   2   3     0        2
+## 17                 seek_help       0     1251 1251   2  10     0        3
+## 18             self_employed       0     1251 1251   2   7     0        3
+## 19                supervisor       0     1251 1251   2  12     0        3
+## 20              tech_company       0     1251 1251   2   3     0        2
+## 21                 treatment       0     1251 1251   2   3     0        2
+## 22          wellness_program       0     1251 1251   2  10     0        3
+## 23            work_interfere       0     1251 1251   5   9     0        5
+## 
+## Variable type: numeric 
+##   variable missing complete    n  mean   sd min p25 median p75 max     hist
+## 1      Age       0     1251 1251 32.08 7.29  18  27     31  36  72 ▂▇▆▂▁▁▁▁&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can ignore a few columns like &lt;code&gt;state&lt;/code&gt;, &lt;code&gt;comments&lt;/code&gt; and &lt;code&gt;Timestamp&lt;/code&gt; since they do not provide much benefit in the analysis. While I really appreciate the survey keeping gender as a free response, employees with gender variance form a very small subset of the data, hence we can club everyone with variability in their gender(neither male nor female) as &lt;code&gt;gender_variance&lt;/code&gt; only for the sake of this analysis. There are values for &lt;code&gt;Age&lt;/code&gt; that make no sense and so we restrict the &lt;code&gt;Age&lt;/code&gt; column to be between 18 and 90 (and remove all rows that have nonsensical ages). Finally, we replace missing values in &lt;code&gt;self_employed&lt;/code&gt; and &lt;code&gt;work_interfere&lt;/code&gt; with “unknown”.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;how-does-seeking-treatment-look-relative-to-the-rest-of-the-responses-in-the-survey&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;How does seeking treatment look relative to the rest of the responses in the survey?&lt;/h2&gt;
+&lt;p&gt;Since many variables in the survey data are categorical, we can’t do a lot of ‘sexy’, numerical analysis. However, response counts (and proportions) can serve as a valuable variable in terms of insight.&lt;/p&gt;
+&lt;p&gt;Let’s take the &lt;code&gt;treatment&lt;/code&gt; variable for example, it corresponds to the question, &lt;strong&gt;Have you sought treatment for a mental health condition?&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mental_health %&amp;gt;%
+  count(treatment)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 2
+##   treatment     n
+##   &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;
+## 1 No          619
+## 2 Yes         632&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It looks fairly balanced in terms of diversity in responses, no unknowns. We can look at differences in how employees who have been treated for mental health issues responded to some of the questions on the survey:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;treatment &amp;lt;- mental_health %&amp;gt;%
+  gather(Gender, self_employed, family_history, work_interfere, remote_work:obs_consequence, key = &amp;quot;question&amp;quot;, value = &amp;quot;response&amp;quot;) %&amp;gt;%
+  select(question, response, treatment) %&amp;gt;%
+  count(question, response, treatment) %&amp;gt;%
+  spread(treatment, n) %&amp;gt;%
+  mutate(total = No + Yes)
+
+treatment %&amp;gt;%
+  arrange(-Yes/total)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 60 x 5
+##    question        response              No   Yes total
+##    &amp;lt;chr&amp;gt;           &amp;lt;chr&amp;gt;              &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;
+##  1 work_interfere  Often                 21   119   140
+##  2 Gender          gender_variance        3    12    15
+##  3 work_interfere  Sometimes            107   357   464
+##  4 family_history  Yes                  127   362   489
+##  5 work_interfere  Rarely                51   122   173
+##  6 obs_consequence Yes                   56   125   181
+##  7 care_options    Yes                  136   303   439
+##  8 Gender          female                77   170   247
+##  9 leave           Very difficult        31    66    97
+## 10 leave           Somewhat difficult    44    81   125
+## # ... with 50 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This gives us proportions of treatment responses (Yes/No) within each response for each categorical question, we can now apply some statistical techniques to estimate what proportion an employee would say ‘Yes’ to the “Have you sought treatment for a mental health condition?” question.&lt;/p&gt;
+&lt;p&gt;One method that we can use is known as &lt;strong&gt;empirical bayes estimation&lt;/strong&gt;. &lt;a href=&#34;https://twitter.com/drob&#34;&gt;David Robinson&lt;/a&gt; gives an amazing introduction and explanation in his series about Empirical Bayes which starts with &lt;a href=&#34;http://varianceexplained.org/statistics/beta_distribution_and_baseball/&#34;&gt;this post&lt;/a&gt;. We can treat the variable formed by dividing &lt;code&gt;Yes&lt;/code&gt; by &lt;code&gt;total&lt;/code&gt;, or the fraction of times “yes” is the response to the treatment question as the variable to estimate using the empirical bayes method. But first, let’s look at the distribution of &lt;code&gt;Yes&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;treatment %&amp;gt;%
+  mutate(yes_prop = Yes/total) %&amp;gt;%
+  ggplot(aes(yes_prop)) +
+  geom_histogram(fill = &amp;quot;#bd1550&amp;quot;) + 
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(face = &amp;quot;bold&amp;quot;, size = rel(1.8), family = &amp;quot;Merriweather&amp;quot;),
+    plot.subtitle = element_text(size = rel(1.2), family = &amp;quot;Merriweather Light&amp;quot;, margin = margin(0,0,20,0)),
+    text = element_text(family = &amp;quot;Noto Sans CJK JP Light&amp;quot;),
+    axis.title.x = element_text(margin = margin(20, 0, 0, 0)),
+    axis.text.x = element_text(size = rel(1.2)),
+    plot.caption = element_text(margin = margin(10, 0, 0, 0))
+  ) +
+  labs(
+    title = &amp;quot;Distribution of proportions of employees \nseeking treatment for mental health&amp;quot;,
+    subtitle = &amp;quot;Within responses to other questions\nin the OSMI mental health survey data&amp;quot;,
+    x = &amp;quot;Proportion of employees who have sought treatment for mental health&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/posts/2018-01-03-attitudes-of-employees-towards-mental-health-in-the-tech-workplace_files/figure-html/yes_plot-1.png&#34; width=&#34;1260&#34; /&gt; Since this plot shows a probability distribution of rates, we can fit a beta distribution which takes evidence from the data as prior beliefs. All this can be done by the &lt;code&gt;ebbr&lt;/code&gt; package which will use Bayes’ theorem to to get point estimates and 95% credible intervals for looking at the proportion of ‘Yes’ relative to all responses to the question.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;treatment_estimate &amp;lt;- treatment %&amp;gt;%
+  add_ebb_estimate(Yes, total) %&amp;gt;%
+  select(question,response, Yes, total, .raw, .fitted, .low, .high)
+
+treatment_estimate&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 60 x 8
+##    question     response     Yes total  .raw .fitted  .low .high
+##    &amp;lt;chr&amp;gt;        &amp;lt;chr&amp;gt;      &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
+##  1 anonymity    Don&amp;#39;t know   369   815 0.453   0.454 0.420 0.488
+##  2 anonymity    No            37    64 0.578   0.569 0.456 0.678
+##  3 anonymity    Yes          226   372 0.608   0.605 0.556 0.653
+##  4 benefits     Don&amp;#39;t know   151   407 0.371   0.375 0.329 0.422
+##  5 benefits     No           179   371 0.482   0.483 0.434 0.534
+##  6 benefits     Yes          302   473 0.638   0.636 0.592 0.678
+##  7 care_options No           206   499 0.413   0.415 0.373 0.458
+##  8 care_options Not sure     123   313 0.393   0.397 0.345 0.451
+##  9 care_options Yes          303   439 0.690   0.686 0.642 0.728
+## 10 coworkers    No           117   258 0.453   0.456 0.397 0.516
+## # ... with 50 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can plot the confidence intervals along with the point estimate for each of the responses, this will result in a very long plot!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;treatment_estimate %&amp;gt;%
+  mutate(question = paste(question, response, sep = &amp;quot;: &amp;quot;)) %&amp;gt;%
+  mutate(question = reorder(question, .fitted)) %&amp;gt;%
+  filter(total &amp;gt; 100) %&amp;gt;%
+  ggplot(aes(.fitted, question)) + 
+  geom_point(aes(size = total), color = &amp;quot;#8fbc94&amp;quot;) +
+  geom_errorbarh(aes(xmin = .low, xmax = .high), color = &amp;quot;#8fbc94&amp;quot;) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = &amp;quot;bold&amp;quot;, size = rel(2.2), family = &amp;quot;Merriweather&amp;quot;, margin = margin(10, 0, 10, 0), hjust = 0),
+    plot.subtitle = element_text(size = rel(1.5), family = &amp;quot;Merriweather Light&amp;quot;, margin = margin(0,0,30,0)),
+    text = element_text(family = &amp;quot;Noto Sans CJK JP Light&amp;quot;),
+    axis.title.x = element_text(margin = margin(20, 0, 0, 0), size = rel(1.3)),
+    axis.text.x = element_text(size = rel(1.4)),
+    plot.caption = element_text(margin = margin(10, 0, 0, 0), size = rel(1.2)),
+    axis.title.x.top = element_text(margin = margin(0, 0, 20, 0)),
+    axis.title.y = element_text(size = rel(1.3)),
+    axis.text.y = element_text(size = rel(1.4)),
+    legend.position = &amp;quot;top&amp;quot;,
+    legend.title = element_text(size = rel(1.3)),
+    legend.text = element_text(size = rel(1.1))
+  ) +
+  scale_x_continuous(sec.axis = dup_axis(), labels = scales::percent_format(), limits = c(0, 0.9), breaks = seq(0, 0.9, by = 0.1)) +
+  scale_size_continuous(range = c(2,6)) +
+  labs (
+    title = &amp;quot;Responses of employees who have\nsought treatment for mental health&amp;quot;,
+    subtitle = &amp;quot;Based on responses of the OSMI mental health survey, 2014.\nMinimum 100 employees in each response category.\nIntervals are 95% credible.&amp;quot;,
+    y = &amp;quot;Responses&amp;quot;,
+    x = &amp;quot;people who sought treatment/total people in response category&amp;quot;,
+    caption = &amp;quot;Source: Kaggle&amp;quot;,
+    size = &amp;quot;Number of respondents&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/posts/2018-01-03-attitudes-of-employees-towards-mental-health-in-the-tech-workplace_files/figure-html/estimate_plot-1.png&#34; width=&#34;1800&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This plot shows all responses to questions and the proportion of respondents who have sought treatment in each response category. The different sizes of the points indicate the number of people who had that particular response as well as said ’Yes’to the treatment question.&lt;/p&gt;
+&lt;p&gt;Example of interpretation: 83% of employees in the survey who felt their mental illness often interferes with their work (&lt;code&gt;work_interfere&lt;/code&gt; addresses this question) have sought treatment for mental health. We can also see that many respondents with a family history (&lt;code&gt;family_history&lt;/code&gt;) of mental illness as well as those who face difficulties in getting leave due to mental health issues (&lt;code&gt;leave&lt;/code&gt;) have higher occurence in seeking treatment for mental health in the survey.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;alternative-visualization&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Alternative visualization&lt;/h2&gt;
+&lt;p&gt;A better way to look at this same plot is separating it by questions so that identifying responses with higher amounts of treatment-seekers becomes more apparent. I have also parsed the full questions for each variable to show in this plot.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;questions &amp;lt;- read_delim(&amp;quot;../../static/data/question_response.txt&amp;quot;, &amp;quot;:&amp;quot;)
+
+treatment_estimate %&amp;gt;%
+  inner_join(questions, by = c(&amp;quot;question&amp;quot; = &amp;quot;question_var&amp;quot;)) %&amp;gt;%
+  mutate(response = reorder(response, .fitted)) %&amp;gt;%
+  filter(total &amp;gt; 100) %&amp;gt;%
+  ggplot(aes(.fitted, response)) + 
+  geom_point(aes(size = total), color = &amp;quot;#8fbc94&amp;quot;) +
+  geom_errorbarh(aes(xmin = .low, xmax = .high), color = &amp;quot;#8fbc94&amp;quot;) +
+  facet_wrap(~question_text, scales = &amp;quot;free&amp;quot;, ncol = 2, labeller = labeller(question_text = label_wrap_gen(39))) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = &amp;quot;bold&amp;quot;, size = rel(2.2), family = &amp;quot;Merriweather&amp;quot;, margin = margin(10, 0, 10, 0), hjust = 0),
+    plot.subtitle = element_text(size = rel(1.5), family = &amp;quot;Merriweather Light&amp;quot;, margin = margin(0,0,30,0)),
+    text = element_text(family = &amp;quot;Noto Sans CJK JP Light&amp;quot;),
+    axis.title.x = element_text(margin = margin(20, 0, 0, 0), size = rel(1.3)),
+    axis.text.x = element_text(size = rel(1.4)),
+    plot.caption = element_text(margin = margin(10, 0, 0, 0), size = rel(1.2)),
+    axis.title.y = element_text(size = rel(1.3)),
+    axis.text.y = element_text(size = rel(1.4)),
+    legend.position = &amp;quot;top&amp;quot;,
+    legend.title = element_text(size = rel(1.3)),
+    legend.text = element_text(size = rel(1.1)),
+    strip.text = element_text(size = rel(1.1), face = &amp;quot;bold&amp;quot;)
+  ) +
+  scale_x_continuous(labels = scales::percent_format(), limits = c(0, 1), breaks = seq(0, 1, by = 0.25)) +
+  scale_size_continuous(range = c(2,5)) +
+  labs (
+    title = &amp;quot;Responses of employees who have\nsought treatment for mental health&amp;quot;,
+    subtitle = &amp;quot;Based on responses of the OSMI mental health survey, 2014.\nMinimum 100 employees in each response category.\nIntervals are 95% credible.&amp;quot;,
+    y = &amp;quot;Responses&amp;quot;,
+    x = &amp;quot;people who sought treatment/total people in response category&amp;quot;,
+    caption = &amp;quot;Source: Kaggle&amp;quot;,
+    size = &amp;quot;Number of respondents&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/posts/2018-01-03-attitudes-of-employees-towards-mental-health-in-the-tech-workplace_files/figure-html/estimate_plot2-1.png&#34; width=&#34;1800&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Adding the proper question texts as well as splitting the plot for each question really helps understand differences between each response in a given question, relative to the fraction of employees who have sought treatment. Most of the responses that result in higher peoportions of treatment seekers than their alternatives have some sort of an indication towards a negative consequence of work in regards to mental health. For example:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;respondents who feel their &lt;strong&gt;company does not take mental health as seriously as physical health&lt;/strong&gt; also accounted for being high in number of treatment seekers.&lt;/li&gt;
+&lt;li&gt;the same thing is observed with employees who think &lt;strong&gt;discussing their mental health issues with the employer can have a negative consequence&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Often times an employee with mental health issues will not seek treatment because they fear its effect on their work. In this analysis, we have seen how employees who seek treatment feel about their workplace in relation to their mental health and explored some of the differences in attitudes for other questions in the survey. Analyses similar to the one I have presented can contribute to, or potentially ignite further, much better research about mental health at workplaces. There is a lot more data than what I was able to present here and so there are a number of ideas that can be applied to this data, such as:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Creating a &lt;code&gt;disclosure&lt;/code&gt; metric that looks at the extent to which employees can dicuss mental issues with their employers (coworkers, supervisors, and during interview). This can be set up as an ordinal regression problem by making the metric ordinal, like a likert-scale (0-10).&lt;/li&gt;
+&lt;li&gt;I have looked at seeking treatment and its proportions across different responses and response categories, the same can be done with any question with complete data (presence of missing variables causes more ambiguity than what is already present in the survey data due to sampling bias, both voluntary and no-response)&lt;/li&gt;
+&lt;li&gt;Anything you can think of, the data is all present &lt;a href=&#34;https://www.kaggle.com/osmi/mental-health-in-tech-survey/data&#34;&gt;here&lt;/a&gt; along with the new, 2016 survey results which can be found &lt;a href=&#34;https://www.kaggle.com/osmi/mental-health-in-tech-2016/data&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I hope you enjoyed reading this analysis, it is my hope to continue writing more data-driven posts in the future as I have mentioned countless times in the past to be the major reason behind this website. I wish everyone a happy 2018!&lt;/p&gt;
+&lt;p&gt;You can check out the R code used to write this post &lt;a href=&#34;https://github.com/kanishkamisra/blog&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The First Post</title>
+      <link>/post/first-post/</link>
+      <pubDate>Tue, 19 Dec 2017 00:00:00 +0000</pubDate>
+      <guid>/post/first-post/</guid>
+      <description>
+
+
+&lt;div id=&#34;why&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Why?&lt;/h1&gt;
+&lt;p&gt;I feel no other content can do enough justice to a blog’s first post than the one describing why the author would take out time from his/her daily routine and write about stuff. So lets start with the why:&lt;/p&gt;
+&lt;p&gt;Over the course of my undergraduate degree at Purdue, I have increasingly grown fond of the R programming language as part of my journey in a data driven career. The community surrounding the open-source language is one of the main reasons why I believe R has become so popular in data projects as well as data science teams in industry. Most of the active members of the R community are on twitter and their tweets or top quality blog posts keep inspiring me to push my limits as to what I can do with the power of data driven programming.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/drob&#34;&gt;David Robinson&lt;/a&gt;’s recent &lt;a href=&#34;http://varianceexplained.org/r/start-blog/&#34;&gt;post&lt;/a&gt; serves as a great advice to all aspiring data scientists since it stresses on the importance of creating public artifacts and writing about them from a career perspective. David talks about how a data blog can help:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Practicing skills you are proud of and showing them off by writing about them.&lt;/li&gt;
+&lt;li&gt;Interacting with community by making work public and sharing.&lt;/li&gt;
+&lt;li&gt;Learning about prospective skills to work on through community feedback.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;As I hopefully transition into grad school, I’d like to stick to these principles while also putting emphasis on improving my communication of analysis and results which would more than just help me in my career.&lt;/p&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;&amp;quot;Things that are still on your computer are approximately useless.&amp;quot; -&lt;a href=&#34;https://twitter.com/drob?ref_src=twsrc%5Etfw&#34;&gt;@drob&lt;/a&gt; &lt;a href=&#34;https://twitter.com/hashtag/eUSR?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#eUSR&lt;/a&gt; &lt;a href=&#34;https://twitter.com/hashtag/eUSR2017?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#eUSR2017&lt;/a&gt; &lt;a href=&#34;https://t.co/nS3IBiRHBn&#34;&gt;pic.twitter.com/nS3IBiRHBn&lt;/a&gt;&lt;/p&gt;&amp;mdash; AmeliaMN (@AmeliaMN) &lt;a href=&#34;https://twitter.com/AmeliaMN/status/926509282874585089?ref_src=twsrc%5Etfw&#34;&gt;November 3, 2017&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+
+&lt;/div&gt;
+&lt;div id=&#34;what&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;What?&lt;/h1&gt;
+&lt;p&gt;While a blog about data science can certainly help my career, I am also curious to create content that focuses on trends and observations around the world. And so, a lot of (&lt;strong&gt;definitely not all&lt;/strong&gt;) my posts would be around open data that describes conditions in a particular region, or the world as a whole. The major goal behind choosing this topic for a majority of my posts is to try and make the reader think about what they thought was going on and what is the actual, fact-based reality. As Daniel Kahneman puts it: &lt;em&gt;we are bad intuitive statisticians&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Some posts will also focus on cultural analysis (like text analysis of song lyrics or a speech but &lt;strong&gt;not&lt;/strong&gt; a tweet), while some will look at statistical and modeling concepts and some might just be random analyses that are supposed to make you laugh.&lt;/p&gt;
+&lt;p&gt;But one thing is for sure: none of my posts would be polished and I will not actually be change people’s opinions (contrary to the subtitle of the website) since that is more under their control, and I myself am still learning a lot about global devleopment. But I would still like to work on these problems in whatever small way I can and follow David Robinson’s mantra: &lt;em&gt;sharing &lt;strong&gt;anything&lt;/strong&gt; is almost always better than sharing nothing.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;how&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;How?&lt;/h1&gt;
+&lt;p&gt;And finally, the how. This would be rather short since it is much less important than what is produced as content.&lt;/p&gt;
+&lt;p&gt;As an R enthusiast, I am using the &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34;&gt;blogdown&lt;/a&gt; package and reference guide (written by &lt;a href=&#34;https://yihui.name/en/&#34;&gt;Yihui Xie&lt;/a&gt;, &lt;a href=&#34;http://amber.rbind.io/&#34;&gt;Amber Thomas&lt;/a&gt;, &lt;a href=&#34;https://alison.rbind.io/&#34;&gt;Alison Presmanes Hill&lt;/a&gt;) to run this website. Blogdown integrates with &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; to generate the posts on this website by rendering my analysis in Rmarkdown as markdown documents.&lt;/p&gt;
+&lt;p&gt;As an example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(gapminder)
+library(tidyverse)
+
+gapminder %&amp;gt;%
+  filter(continent != &amp;quot;Oceania&amp;quot;) %&amp;gt;%
+  ggplot(aes(year, lifeExp, group = country, color = country)) +
+  geom_line(lwd = 1, show.legend = FALSE) + 
+  facet_wrap(~ continent) +
+  scale_color_manual(values = country_colors) +
+  scale_x_continuous(breaks = seq(1950, 2010, by = 10), limits = c(1950, 2010)) +
+  scale_y_continuous(breaks = seq(20, 100, by = 20), limits = c(20, 85)) +
+  theme_minimal() +
+  theme(
+    strip.text = element_text(size = rel(1.1), face = &amp;quot;bold&amp;quot;),
+    plot.title = element_text(hjust = 0.5, face = &amp;quot;bold&amp;quot;),
+    plot.subtitle = element_text(hjust = 0.5, size = rel(1))
+  ) +
+  ggtitle(&amp;quot;Life Expectancy of countries over the years (1952 - 2007)&amp;quot;) + 
+  labs(
+    caption = &amp;quot;Source: Gapminder&amp;quot;,
+    subtitle = &amp;quot;Countries in Oceania are ignored for some reason&amp;quot;
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/posts/2017-12-19-first-post_files/figure-html/example-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;And so there you have it, a small code snippet and a resulting plot - the essence of this blog along with the accompanying written content. If any of this sounds remotely interesting to you, I welcome you to kanishka.xyz!&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

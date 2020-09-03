@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R | Kanishka Misra</title>
+    <link>/tag/r/</link>
+      <atom:link href="/tag/r/index.xml" rel="self" type="application/rss+xml" />
+    <description>R</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Kanishka Misra 2020</copyright><lastBuildDate>Wed, 19 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>R</title>
+      <link>/tag/r/</link>
+    </image>
+    
+    <item>
+      <title>Implementing a Neural Network from scratch in R using rrays</title>
+      <link>/post/implementing-a-neural-network-from-scratch-using-rrays/</link>
+      <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>/post/implementing-a-neural-network-from-scratch-using-rrays/</guid>
+      <description>
+
+
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;In this post, I want to briefly demonstrate how one can implement a simple Neural Network architecture in R using a new package for array/tensor computation called &lt;code&gt;rray&lt;/code&gt; along with the &lt;code&gt;R6&lt;/code&gt; object oriented programming system which will be used to modularize the various elements requried for anyone to build a neural network architecture. Using our neural network toolkit, I will demonstrate the quintessential example where Linear Models fail but Neural Networks succeed: the &lt;strong&gt;XOR function&lt;/strong&gt;. Most of the code is going to mimick Joel Grus’ awesome code for “Building a Deep Learning Library” resource found &lt;a href=&#34;&#34;&gt;here&lt;/a&gt;, I cannot state enough about how helpful his videos and blog posts have been. An important difference is that I have ported his python code to R and used rray as the tensor computation package to do all the heavylifting.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;neural-network-primer-an-inadequate-one&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Neural Network Primer (an inadequate one)&lt;/h2&gt;
+&lt;p&gt;Specifically, the post covers implementing multilayer perceptrons (MLP). MLPs are prototypical deep learning models whose goal is to approximate a function, &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{y} = f(\mathbf{x}|\Theta)\)&lt;/span&gt;, where &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{x}\)&lt;/span&gt; are the inputs and &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{y}\)&lt;/span&gt; are the outputs and it does so by &lt;em&gt;learning&lt;/em&gt; the best parameters captured in the collection &lt;span class=&#34;math inline&#34;&gt;\(\Theta\)&lt;/span&gt;. These are also referred to as Feed-forward Neural Networks because information flows only in one direction: &lt;em&gt;forward&lt;/em&gt; through a series of functions to compute the output values&lt;a href=&#34;#fn1&#34; class=&#34;footnote-ref&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;. The simplest form of a multi-layer perceptron is composed of a series of transformations to the input:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+f_1 = xW_1 + b_1 \\
+g = \phi(f_1(x)) \\
+f_2 = gW_2 + b_2
+\]&lt;/span&gt;
+Combining these equations into one,&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+MLP(x) = \phi(xW_1 + b_1)W_2 + b_2
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Here &lt;span class=&#34;math inline&#34;&gt;\(f_1\)&lt;/span&gt; is a single perceptron, which is a linear transformation of the input vector &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;, using the matrix &lt;span class=&#34;math inline&#34;&gt;\(W\)&lt;/span&gt;. &lt;span class=&#34;math inline&#34;&gt;\(\phi\)&lt;/span&gt; is a non-linear function that is often referred to as an activation function that (in this case) transforms the input into something from which a simple linear model, &lt;span class=&#34;math inline&#34;&gt;\(f_2\)&lt;/span&gt; can be easily trained to accurately predict the correct output. The weight matrices &lt;span class=&#34;math inline&#34;&gt;\(\{W_1, W_2\}\)&lt;/span&gt; and the bias vectors &lt;span class=&#34;math inline&#34;&gt;\(\{b_1, b_2\}\)&lt;/span&gt; form our parameters which are &lt;em&gt;learnt&lt;/em&gt; during training.&lt;/p&gt;
+&lt;p&gt;How is the network trained and how are the parameters &lt;em&gt;learnt&lt;/em&gt;? Using the combination of loss functions and gradient descent methods of course! More precisely, in a typical usecase of Neural Networks, one would have inputs (&lt;span class=&#34;math inline&#34;&gt;\(\mathbf{x}\)&lt;/span&gt;) and the corresponding outputs (&lt;span class=&#34;math inline&#34;&gt;\(\mathbf{y}\)&lt;/span&gt;) that the network has to be trained to predict, loss functions operationalize this by assigning a numerical score to the produced output of a neural network (denoted by &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{\hat{y}}\)&lt;/span&gt;) by comparing it to the desired output using some mathematical function(s), i.e., they try to quantify how bad are the predictions of the neural network. Once the score is calculated, it is important for the model to tweak the gradients such that this score is minimized. This is done using Gradient based learning methods. I do not want to dwelve deeper into theory, but in brief, gradient based methods try to minimize this loss score in an iterative process by:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Computing the loss estimate&lt;/li&gt;
+&lt;li&gt;Computing the rate change of the loss (called gradients or derivatives) with respect to the parameters&lt;/li&gt;
+&lt;li&gt;Shifting the parameter values in a direction opposite to that of the gradients.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In our instance, we will be looking at the canonical example of Gradient based methods, the Stochastic Gradient Descent (SGD).&lt;/p&gt;
+&lt;p&gt;This is not the ideal introduction to Neural Networks and some the resources that do an infinitely better job than I did are the deep learning book by Goodfellow et al. (2016) and Stanford’s CS231n class among others.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;computing-with-vectors-tensors-in-r-a-rray-of-hope&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Computing with Vectors (tensors?) in R: a rray of hope&lt;/h2&gt;
+&lt;p&gt;Since in most cases the inputs and outputs that are used in the training of neural networks are often vectors, we will be using a package in R that provides useful tools to perform computation with these vectors. &lt;code&gt;rray&lt;/code&gt; is a new package in R made by Davis Vaughn with many different goals, but the major one being: it enables seamless integration of array/tensor broadcasting across all widely used functions including ones that could not have been done (easily) by using the &lt;code&gt;Matrix&lt;/code&gt; package (which is extremely awesome and fast!). An example can be shown here:&lt;/p&gt;
+&lt;p&gt;Lets say you have an &lt;span class=&#34;math inline&#34;&gt;\(3 \times 2\)&lt;/span&gt; matrix, and you want to center it columnwise. With &lt;code&gt;rray&lt;/code&gt;, it is a simple operation, like so:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(rray)
+set.seed(1234)
+
+x &amp;lt;- rray(rnorm(6), dim = c(3,2))
+
+x - rray_mean(x, axes = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;lt;rray&amp;lt;dbl&amp;gt;[,2][3]&amp;gt;
+##            [,1]       [,2]
+## [1,] -1.2586673 -1.8755253
+## [2,]  0.2258277  0.8992971
+## [3,]  1.0328396  0.9762283&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In contrast, the default &lt;code&gt;matrix&lt;/code&gt; in R is not able to do this properly:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;set.seed(1234)
+
+x_mat &amp;lt;- matrix(rnorm(6), nrow = 3)
+
+x_mat - colMeans(x_mat)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##            [,1]       [,2]
+## [1,] -1.2586673 -1.8755253
+## [2,]  0.7476016  0.3775231
+## [3,]  1.0328396  0.9762283&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and with the &lt;code&gt;Matrix&lt;/code&gt; library, it becomes a little ugly:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(Matrix)
+set.seed(1234)
+
+x_Mat &amp;lt;- Matrix(rnorm(6), nrow = 3)
+
+t(t(x_Mat) - Matrix(Matrix::colMeans(x_Mat)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 3 x 2 Matrix of class &amp;quot;dgeMatrix&amp;quot;
+##            [,1]       [,2]
+## [1,] -1.2586673 -1.8755253
+## [2,]  0.2258277  0.8992971
+## [3,]  1.0328396  0.9762283&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Hopefully, the point is clear, but for more interesting utilities of broadcasting, check out &lt;a href=&#34;&#34;&gt;this&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;yet-another-r-oop-system-r6&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Yet another R OOP system: R6&lt;/h2&gt;
+&lt;p&gt;Generally, a Neural Network model will be made up of several components. We need to keep track of the inputs, the initialization of weights, the logic of the forward pass, the gradients with respect to the loss function (usually done using auto-diff libraries, but we will be hand coding them), and finally the update rule (gradient based methods in our case). The model could be made up using many different kinds of layers and activation functions, thus in order for us to construct such a model efficiently, using Object Oriented Programming proves to be very useful. The major advantage it gives us is &lt;strong&gt;Encapsulation&lt;/strong&gt;, which helps us abstract the data (parameters of the network) as well as functions (forward, and in our case, backward pass logic) together into an object; and &lt;strong&gt;Polymorphism&lt;/strong&gt;, which allows us to use the same method, say the forward pass for any kind of a model.&lt;/p&gt;
+&lt;p&gt;R provides us with several options for using Object Oriented Paradigms: S3, S4 and R6, but we will be using R6 since it facilitates encapsulation more easily than the others. For a detailed discussion on the trade-offs between the OOP systems in R, I refer the reader to &lt;a href=&#34;https://adv-r.hadley.nz/oo-tradeoffs.html&#34;&gt;Chapter 16 of Hadley Wickham’s awesome second edition of Advanced R.&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;neural-network-layers&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Neural Network Layers&lt;/h2&gt;
+&lt;p&gt;Layers are fundamental structural elements of the network architecture, each layer is usually a function that maps a vector to another vector (or a scalar in certail cases). A typical NN is just a stack of these layers that start from taking in the input data, performing their respective functions, and producing the output.&lt;/p&gt;
+&lt;p&gt;To start off, lets load the required libraries.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(rray)
+library(R6)
+
+set.seed(1234)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, we’d want to describe a general structure of a layer. We do this by defining an &lt;code&gt;R6&lt;/code&gt; class called &lt;code&gt;Layer&lt;/code&gt;. We will need two public fields, the parameters of the layer, and the gradients to pass backward during the backpropagation step. Each layer will also contain two functions: (1) logic about the forward computation for moving &lt;em&gt;ahead&lt;/em&gt; in the network, and (2) the backward computation, for computing and updating the gradients with respect to the input and the parameters.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Layer &amp;lt;- R6Class(
+  &amp;quot;Layer&amp;quot;,
+  public = list(
+    params = list(),
+    grads = list(),
+    initialize = function() {},
+    forward = function() {stop(&amp;quot;Not Implemented!&amp;quot;)},
+    backward = function() {stop(&amp;quot;Not Implemented!&amp;quot;)}
+  )
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since this is a generic layer method, we will not implement anything here, but define a new type of layer by extending this class. Lets define a Linear layer, containing a weights matrix, &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{W}\)&lt;/span&gt; and a bias vector, &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{b}\)&lt;/span&gt;. The forward computation, given input &lt;span class=&#34;math inline&#34;&gt;\(\mathbf{x}\)&lt;/span&gt; is simply:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+  \mathbf{x \cdot W + b}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;To compute the gradients&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Linear &amp;lt;- R6Class(
+  &amp;quot;Linear&amp;quot;,
+  inherit = Layer,
+  public = list(
+    inputs = NULL,
+    initialize = function(input_size, output_size) {
+      # super$initialize()
+      self$params[[&amp;quot;w&amp;quot;]] = rray(rnorm(input_size * output_size), c(input_size, output_size))
+      self$params[[&amp;quot;bias&amp;quot;]] = rray(rnorm(output_size), c(1, output_size))
+    },
+    forward = function(inputs) {
+      self$inputs = inputs
+      return(self$inputs %*% self$params[[&amp;quot;w&amp;quot;]] + self$params[[&amp;quot;bias&amp;quot;]])
+    },
+    backward = function(grad) {
+      self$grads[[&amp;quot;w&amp;quot;]] = t(self$inputs) %*% grad
+      self$grads[[&amp;quot;bias&amp;quot;]] = rray_sum(grad, axes = 1)
+      
+      return(grad %*% t(self$params[[&amp;quot;w&amp;quot;]]))
+    }
+  )
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;there are other types of networks where this isn’t the case, such as Recurrent Neural Networks (RNN) where the output of a network is used as an input to another network&lt;a href=&#34;#fnref1&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
