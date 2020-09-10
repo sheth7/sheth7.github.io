@@ -83,11 +83,17 @@
 
 # About widget
 
-- id: interests
-  translation: Interests
+- id: research_interests
+  translation: Research Interests
+
+- id: other_interests
+  translation: Other Interests
 
 - id: education
   translation: Education
+  
+- id: committee
+  translation: Doctoral Committee
 
 - id: user_profile_latest
   translation: Latest

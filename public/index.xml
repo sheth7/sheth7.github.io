@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kanishka Misra</title>
+    <title>Ananya Sheth</title>
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
-    <description>Kanishka Misra</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Kanishka Misra 2020</copyright><lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
+    <description>Ananya Sheth</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Ananya Sheth 2020</copyright><lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
-      <title>Kanishka Misra</title>
+      <title>Ananya Sheth</title>
       <link>/</link>
     </image>
     
@@ -31,6 +31,19 @@
 &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shortcodes&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Further talk details can easily be added to this page using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Framing the Intractable -- Comprehensive Success Factor Analysis for Grand Challenges</title>
+      <link>/publication/sftr2020/</link>
+      <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>/publication/sftr2020/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -1395,6 +1408,56 @@ gapminder %&amp;gt;%
 &lt;p&gt;&lt;img src=&#34;/posts/2017-12-19-first-post_files/figure-html/example-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;And so there you have it, a small code snippet and a resulting plot - the essence of this blog along with the accompanying written content. If any of this sounds remotely interesting to you, I welcome you to kanishka.xyz!&lt;/p&gt;
 &lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>News</title>
+      <link>/news/</link>
+      <pubDate>Fri, 01 Dec 2017 00:00:00 -0500</pubDate>
+      <guid>/news/</guid>
+      <description>
+
+
+
+
+
+
+
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;u&gt;September 2020&lt;/u&gt;: A co-authored &lt;strong&gt;research article&lt;/strong&gt; on &lt;strong&gt;enterprise risk complexity&lt;/strong&gt; with &lt;a href=&#34;https://engineering.purdue.edu/CE/People/view_person?resource_id=2154&#34;&gt;Dr. Joe Sinfield&lt;/a&gt; is currently in early draft stage. It views enterprise risk management from a complexity science perspective and is intended for the journal Risk Analysis.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;u&gt;September 2020&lt;/u&gt;: A co-authored &lt;strong&gt;research article&lt;/strong&gt; on &lt;strong&gt;pathways to enterprise resilience&lt;/strong&gt; with &lt;a href=&#34;https://engineering.purdue.edu/CE/People/view_person?resource_id=2154&#34;&gt;Dr. Joe Sinfield&lt;/a&gt; is currently in late draft stage. It distills hitherto findings from my research, and is intended for executive redearship.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;u&gt;August 2020&lt;/u&gt;: Attended the Academy of Management&amp;rsquo;s &lt;strong&gt;paper development workshop on automated content analysis&lt;/strong&gt; and participated in round-table discussions with brilliant academy mentors &lt;a href=&#34;https://www.business.pitt.edu/people/lingling-pan&#34;&gt;Pan Lingling&lt;/a&gt; and &lt;a href=&#34;https://apps.ualberta.ca/directory/person/thanniga&#34;&gt;Tim Hannigan&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;u&gt;August 2020&lt;/u&gt;: Submitted a Doctoral Dissertation Research Improvement Grant (DDRIG) &lt;strong&gt;proposal to the National Science Foundation&lt;/strong&gt; via Purdue University with &lt;a href=&#34;https://engineering.purdue.edu/CE/People/view_person?resource_id=2154&#34;&gt;Dr. Joe Sinfield&lt;/a&gt; and &lt;a href=&#34;https://polytechnic.purdue.edu/profile/taylo108&#34;&gt;Dr. Julia Rayz&lt;/a&gt; as co- senior personnel.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;u&gt;August 2020&lt;/u&gt;: &lt;a href=&#34;publication/sftr2020&#34;&gt;Paper&lt;/a&gt; with &lt;a href=&#34;https://engineering.purdue.edu/CE/People/view_person?resource_id=2154&#34;&gt;Dr. Joe Sinfield&lt;/a&gt; and &lt;a href=&#34;https://www.researchgate.net/profile/Romika_R_Kotian&#34;&gt;Romika Kotian&lt;/a&gt; was accepted for publication in Sustainable Futures - Elsevier!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;u&gt;July 2020&lt;/u&gt;: Congratulations to Dr. Jucun Liu and &lt;a href=&#34;https://engineering.purdue.edu/CE/People/view_person?resource_id=2154&#34;&gt;Dr. Joe Sinfield&lt;/a&gt; of Purdue&amp;rsquo;s &lt;a href=&#34;&#34;&gt;Innovation Science Laboratory&lt;/a&gt; for the acceptance of their  &lt;a href=&#34;https://www.sciencedirect.com/science/article/pii/S0024630120302296&#34;&gt;paper&lt;/a&gt; on Business Models for publication in Long Range Planning!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;u&gt;July 2020&lt;/u&gt;: A co-authored &lt;strong&gt;research article&lt;/strong&gt; on the role of &lt;strong&gt;SMEs&lt;/strong&gt; in &lt;strong&gt;International Development&lt;/strong&gt; with &lt;a href=&#34;https://www.researchgate.net/profile/Romika_R_Kotian&#34;&gt;Romika Kotian&lt;/a&gt; and &lt;a href=&#34;https://engineering.purdue.edu/CE/People/view_person?resource_id=2154&#34;&gt;Dr. Joe Sinfield&lt;/a&gt; is currently in analysis stage.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;u&gt;July 2020&lt;/u&gt;: A co-authored &lt;strong&gt;research article&lt;/strong&gt; on the systematic innovation in USA&amp;rsquo;s &lt;strong&gt;Marine Renewable Energy&lt;/strong&gt; sector with Abhi Ajmani and &lt;a href=&#34;https://engineering.purdue.edu/CE/People/view_person?resource_id=2154&#34;&gt;Dr. Joe Sinfield&lt;/a&gt; is currently in early draft stage.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;u&gt;June 2020&lt;/u&gt;: Submitted three round 1 revisions in June!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;u&gt;May 2020&lt;/u&gt;: Wrote a &lt;a href=&#34;publication/bertpriming&#34;&gt;blog post&lt;/a&gt; on the investment thesis of early-stage Venture Capital for University endowments.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
 </description>
     </item>
     

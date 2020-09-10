@@ -5,7 +5,7 @@
 
 widget = "blank"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = true  # This file represents a page section.
-active = true  # Activate this widget? true/false
+active = false  # Activate this widget? true/false
 weight = 30  # Order that this section will appear.
 
 title = "Research News"
@@ -49,8 +49,13 @@ subtitle = ""
  # CSS class.
  css_class = ""
 +++
-- **August 2020:** Congrats to my undergraduate advisees [Qingyuan "Carol" Hu](https://www.linkedin.com/in/qingyuan-carol-hu-a60211136/) and [Yi Zhang](https://www.linkedin.com/in/yi-z3050/) for their paper with Julia and me being accepted to ICCI*CC 2020!
-- **July 2020:** Presented a [Poster](publication/bert-priming) with [Allyson Ettinger](https://aetting.github.io/) and Julia at the first virtual CogSci!
-- **May 2020:** [Paper](publication/nafips20/) with Julia accepted at NAFIPS'20!
-- **May 2020:** [Poster](publication/bertpriming) with [Allyson Ettinger](https://aetting.github.io/) and Julia accepted at CogSci 2020!
-- **April 2020:** Congrats to my undergraduate advisees [Qingyuan "Carol" Hu](https://www.linkedin.com/in/qingyuan-carol-hu-a60211136/) and [Yi Zhang](https://www.linkedin.com/in/yi-z3050/) for winning second place at the first Virtual Purdue Undergraduate Research Conference!
+- <u>September 2020</u>: A co-authored **research article** on **enterprise risk complexity** with [Dr. Joe Sinfield](https://engineering.purdue.edu/CE/People/view_person?resource_id=2154) is currently in early draft stage. It views enterprise risk management from a complexity science perspective and is intended for the journal Risk Analysis.   
+- <u>September 2020</u>: A co-authored **research article** on **pathways to enterprise resilience** with [Dr. Joe Sinfield](https://engineering.purdue.edu/CE/People/view_person?resource_id=2154) is currently in late draft stage. It distills hitherto findings from my research, and is intended for executive redearship.   
+- <u>August 2020</u>: Attended the Academy of Management's **paper development workshop on automated content analysis** and participated in round-table discussions with a set of brilliant academy mentors.
+- <u>August 2020</u>: Submitted a Doctoral Dissertation Research Improvement Grant (DDRIG) **proposal to the National Science Foundation** via Purdue University with [Dr. Joe Sinfield](https://engineering.purdue.edu/CE/People/view_person?resource_id=2154) and [Dr. Julia Rayz](https://polytechnic.purdue.edu/profile/taylo108) as co- senior personnel.
+- <u>August 2020</u>: [Paper](publication/sftr2020) with [Dr. Joe Sinfield](https://engineering.purdue.edu/CE/People/view_person?resource_id=2154) and [Romika Kotian](https://www.researchgate.net/profile/Romika_R_Kotian) was accepted for publication in Sustainable Futures - Elsevier!
+- <u>July 2020</u>: Congratulations to Dr. Jucun Liu and [Dr. Joe Sinfield](https://engineering.purdue.edu/CE/People/view_person?resource_id=2154) of Purdue's [Innovation Science Laboratory]() for the acceptance of their  [paper](https://www.sciencedirect.com/science/article/pii/S0024630120302296) on Business Models for publication in Long Range Planning!
+- <u>July 2020</u>: A co-authored **research article** on the role of **SMEs** in **International Development** with [Romika Kotian](https://www.researchgate.net/profile/Romika_R_Kotian) and [Dr. Joe Sinfield](https://engineering.purdue.edu/CE/People/view_person?resource_id=2154) is currently in analysis stage.
+- <u>July 2020</u>: A co-authored **research article** on the systematic innovation in USA's **Marine Renewable Energy** sector with Abhi Ajmani and [Dr. Joe Sinfield](https://engineering.purdue.edu/CE/People/view_person?resource_id=2154) is currently in early draft stage.
+- <u>June 2020</u>: Submitted three round 1 revisions in June!
+- <u>May 2020</u>: Wrote a [blog post](publication/bertpriming) on the investment thesis of early-stage Venture Capital for University endowments.

@@ -13,7 +13,7 @@
 #   Latest themes (may require updating): https://sourcethemes.com/academic/themes/
 #   Browse built-in themes in `themes/academic/data/themes/`
 #   Browse user installed themes in `data/themes/`
-theme = "kanishka"
+theme = "anan"
 
 # Enable users to switch between day and night mode?
 day_night = false
@@ -22,7 +22,7 @@ day_night = false
 #   Latest font sets (may require updating): https://sourcethemes.com/academic/themes/
 #   Browse built-in font sets in `themes/academic/data/fonts/`
 #   Browse user installed font sets in `data/fonts/`
-font = ""
+font = "anan"
 
 # Choose a font size.
 # Sizes: XS (extra small), S (small), M (medium), L (large - DEFAULT), XL (extra large)
@@ -88,7 +88,7 @@ show_related = {docs = true, page = false, post = true, project = true, publicat
 ############################
 
 # Enter contact details (optional). To hide a field, clear it to "".
-email = "kmisra@purdue.edu"
+email = "sheth7@purdue.edu"
 phone = ""
 
 # Address
@@ -100,19 +100,22 @@ phone = ""
 coordinates = {latitude = "40.426231", longitude = "-86.911848"}
 
 # Directions for visitors to locate you.
-directions = "Enter Heavilon Hall and find the messiest desk in Room 108. That's me."
+#directions = "Enter Heavilon Hall and find the messiest desk in Room 108. That's me."
+directions = ""
 
 # Office hours
 # A list of your office hours. To remove, set to an empty list `[]`.
-office_hours = ["TBA"]
+#office_hours = ["TBA"]
+office_hours = []
 
 # Enter an optional link for booking appointments (e.g. calendly.com).
-appointment_url = "https://calendly.com/kanishkamisra"
+#appointment_url = "https://calendly.com/kanishkamisra"
+appointment_url = ""
 
 # Contact links
 #   Set to `[]` to disable, or comment out unwanted lines with a hash `#`.
 contact_links = [
-  {icon = "twitter", icon_pack = "fab", name = "Tweet at me", link = "https://twitter.com/kanishkamisra"}
+  {icon = "twitter", icon_pack = "fab", name = "Tweet at me", link = "https://twitter.com/AnanyaSheth"}
   #{icon = "skype", icon_pack = "fab", name = "Skype Me", link = "skype:echo123?call"},
   #{icon = "keybase", icon_pack = "fab", name = "Chat on Keybase", link = "https://keybase.io/"},
   #{icon = "comments", icon_pack = "fas", name = "Discuss on Forum", link = "https://discourse.gohugo.io"},
@@ -127,7 +130,7 @@ contact_links = [
 sharing_image = ""
 
 # Twitter username (without @). Used when a visitor shares your site on Twitter.
-twitter = ""
+twitter = "AnanyaSheth"
 
 ############################
 ## Regional Settings
@@ -184,7 +187,7 @@ plugins_js  = []
   gravatar = false
 
   # Choose a shape for avatar images. Options: circle, square.
-  shape = "circle"
+  shape = "square"
 
 # Available address formats.
 [address_formats]
@@ -210,9 +213,9 @@ plugins_js  = []
   #   2: Compact
   #   3: Card
   #   4: Citation (publications only)
-  post_view = 2
-  publication_view = 2
-  talk_view = 2
+  post_view = 1
+  publication_view = 1
+  talk_view = 1
 
 ############################
 ## Comments
@@ -273,7 +276,7 @@ plugins_js  = []
   #   1: Google Maps
   #   2: OpenStreetMap (Mapnik)
   #   3: OpenStreetMap (Mapbox)
-  engine = 1
+  engine = 0
   api_key = "AIzaSyB2JweMsyN81D6Muw6JiHj9haRu7MWc8Yk"
   zoom = 15
 

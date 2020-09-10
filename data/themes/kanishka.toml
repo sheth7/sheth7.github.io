@@ -5,7 +5,8 @@ name = "kanishka"
 light = true
 
 # Primary
-primary = "#1b6ca8"
+#primary = "#1b6ca8"
+primary = "#FFFFFF"
 
 # Menu
 menu_primary = "#F3F9FB"

@@ -1,0 +1,12 @@
+# Font style metadata
+name = "anan"
+
+# Optional Google font URL
+google_fonts = "Cutive+Mono|Lora:400,600,700|Roboto:100,400,700"
+
+# Font families
+heading_font = "Roboto"
+body_font = "Roboto"
+#body_font = "Lora"
+nav_font = "Roboto"
+mono_font = "Cutive Mono"

@@ -1,0 +1,30 @@
+# Theme metadata
+name = "anan"
+
+# Is theme light or dark?
+# light = false makes font white (good for dark backgrounds)
+# light = true makes font black (good for light backgrounds)
+light = false
+
+# Primary
+primary = "#376F70"
+
+# Menu
+#menu_primary = "#2F4454"
+menu_primary = "#222629"
+# menu_text = "#fff"
+menu_text = "#fff"
+menu_text_active = "#1b6ca8"
+# menu_title = "#fff"
+#menu_title = "#da7b93"
+menu_title = "#376e6f"
+
+#red color - #da7b93
+#green color - #376e6f
+
+# Backgrounds
+background = "#2F4454"
+home_section_odd = "#2F4454"
+home_section_even = "#2F4454"
+
+font = "anan"
