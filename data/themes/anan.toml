@@ -7,19 +7,21 @@ name = "anan"
 light = false
 
 # Primary
-primary = "#376F70"
+#primary = "#376F70"
+primary = "#14bdad"
 
 # Menu
 menu_primary = "#222629"
 # menu_text = "#fff"
 menu_text = "#fff"
-menu_text_active = "#376e6f"
+menu_text_active = "#14bdad"
 # menu_title = "#fff"
-#menu_title = "#da7b93"
-menu_title = "#376e6f"
+#menu_title = "#376e6f"
+menu_title = "#14bdad"
 
 #red color - #da7b93
 #green color - #376e6f
+#electric green color - #14bdad
 
 # Backgrounds
 background = "#222629"

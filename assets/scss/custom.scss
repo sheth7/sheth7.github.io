@@ -24,12 +24,14 @@ a:active,
 a:focus, 
 a:hover {
   //color: #1b6ca8;
-  color: #376e6f;
+  //color: #376e6f;
+  color: #14bdad;
   font-weight: 500;
 }
 
 i {
-  color: #376e6f; 
+  //color: #376e6f; 
+  color: #14bdad;
 }
 
 .article-title a{
@@ -60,7 +62,8 @@ i {
 }
 
 .navbar-light .navbar-brand:hover {
-  color: #376e6f;
+  //color: #376e6f;
+  color: #14bdad;
   text-transform: uppercase;
   font-weight: 700;
 	letter-spacing: .1em;
@@ -90,7 +93,8 @@ a.nav-link:after {
   width: 0%;
   content: '.'; /* make invisible, dot beneath links */
   color: transparent;
-  background: #376e6f;
+  //background: #376e6f;
+  color: #14bdad;
   height: 2px;
 }
 

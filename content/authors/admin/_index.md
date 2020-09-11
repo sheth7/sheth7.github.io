@@ -1,7 +1,7 @@
 ---
 authors:
 - admin
-bio: My research area interests include Enterpise Resilience, Innovation Science, Complex Socio-technical Grand Challenges, and Evolutionary Leadership.
+bio: My research interests include Enterpise Resilience, Innovation Science, Complex Socio-technical Grand Challenges, and Evolutionary Leadership.
 education:
   courses:
   - course: PhD
@@ -13,6 +13,9 @@ education:
   - course: BE in Civil Engineering
     institution: Manipal University, India
     year: 2012
+  - course: High School
+    institution: Essar International, India
+    year: 2008
 
 committee:
    courses:
@@ -39,16 +42,16 @@ committee:
 email: "sheth7@purdue.edu"
 
 research_interests:
-- Complex Risk Understanding 
-- Innovation Science
-- Natural Language Processing
-- Strategy
+- Enterprise Resilience
+- Innovation Strategy
+- Societal Grand Challenges
+- Collective Intelligence
 
 other_interests:
-- Early-stage technology assessment
+- Natural Language Processing
+- Simulation Modeling
 - Early-stage Venture Capital
-- US Healthcare investing
-- Technology investing
+- Digital-healthcare Technology
 
 organizations:
 - name: Purdue University
@@ -82,10 +85,8 @@ user_groups:
 - Visitors
 ---
 
-I am a PhD candidate at Purdue University's [Innovation Science Lab](https://engineering.purdue.edu/Innovation/about/innoscience). My work focuses on better understanding the tension between risk management and growth in enterprises with the objective of building resilient organizations.  Specific research interests include understanding enterprise risks as complex networks and pursuing systematic, repeatible innovation using an innovation toolkit.
+I am a PhD candidate at Purdue University's [Innovation Science Laboratory](https://engineering.purdue.edu/Innovation/about/innoscience). My work focuses on better understanding the tension between risk management and growth in enterprises with the objective of building resilient organizations.  Specific research interests include understanding enterprise risks as complex networks and pursuing systematic, repeatable innovation using our lab's innovation toolkit.
 
 {{% alert note %}}
-A co-authored proposal to study enterprise risk management employing complexity theory is currently in review at the National Science Foundation.
+A proposal to study enterprise risk management using complexity theory is currently in review at the National Science Foundation.
 {{% /alert %}}
-
-Please email me at sheth7@purdue.edu

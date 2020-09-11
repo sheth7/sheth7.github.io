@@ -2,14 +2,14 @@
   "name": "Ananya Sheth",
   "short_name": "Ananya Sheth",
   "lang": "en-us",
-  "theme_color": "#376F70",
-  "background_color": "#376F70",
+  "theme_color": "#14bdad",
+  "background_color": "#14bdad",
   "icons": [{
-    "src": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png",
+    "src": "/images/icon_hu6638cac1dadfb55a27519b9e8d5e6245_25098_192x192_fill_lanczos_center_2.png",
     "sizes": "192x192",
     "type": "image/png"
     }, {
-    "src": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png",
+    "src": "/images/icon_hu6638cac1dadfb55a27519b9e8d5e6245_25098_512x512_fill_lanczos_center_2.png",
     "sizes": "512x512",
     "type": "image/png"
      }],

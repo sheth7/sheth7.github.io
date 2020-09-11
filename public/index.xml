@@ -7,7 +7,7 @@
     <description>Ananya Sheth</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Ananya Sheth 2020</copyright><lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
     <image>
-      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <url>/images/icon_hu6638cac1dadfb55a27519b9e8d5e6245_25098_512x512_fill_lanczos_center_2.png</url>
       <title>Ananya Sheth</title>
       <link>/</link>
     </image>
@@ -36,100 +36,9 @@
     
     <item>
       <title>Framing the Intractable -- Comprehensive Success Factor Analysis for Grand Challenges</title>
-      <link>/publication/sftr2020/</link>
+      <link>/publication/2020sftr/</link>
       <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
-      <guid>/publication/sftr2020/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Exploring Lexical Relations in BERT using Semantic Priming (Forthcoming)</title>
-      <link>/publication/bertpriming/</link>
-      <pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate>
-      <guid>/publication/bertpriming/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>An Approximate Perspective on Word Prediction in Context: Ontological Semantics meets BERT (Forthcoming)</title>
-      <link>/publication/nafips20/</link>
-      <pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate>
-      <guid>/publication/nafips20/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>A Sentiment Based Non-Factoid Question-Answering Framework</title>
-      <link>/publication/nonfactoid/</link>
-      <pubDate>Sun, 06 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/nonfactoid/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Authorship Analysis of Online Predatory Conversations using Character Level Convolution Neural Networks</title>
-      <link>/publication/aacnn/</link>
-      <pubDate>Sun, 06 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/aacnn/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Not So Cute but Fuzzy: Estimating Risk of Sexual Predation in Online Conversations</title>
-      <link>/publication/fuzzy-risk/</link>
-      <pubDate>Sun, 06 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/fuzzy-risk/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>L1 Influence on Content Word errors in Learner English Corpora: Insights from Distributed Representation of Words</title>
-      <link>/publication/cogsci19/</link>
-      <pubDate>Thu, 01 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/cogsci19/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Measuring the Influence of L1 on Learner English Errors in Content Words within Word Embedding Models</title>
-      <link>/publication/iccm/</link>
-      <pubDate>Sun, 21 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/iccm/</guid>
+      <guid>/publication/2020sftr/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
@@ -273,23 +182,10 @@ set.seed(1234)&lt;/code&gt;&lt;/pre&gt;
     </item>
     
     <item>
-      <title>Exploring Automatic Identification of Fantasy-Driven and Contact-Driven Sexual Solicitors</title>
-      <link>/publication/irc/</link>
-      <pubDate>Thu, 28 Mar 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/irc/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Chat Analysis Triage Tool: Differentiating contact-driven vs. fantasy-driven child sex offenders</title>
-      <link>/publication/catt/</link>
-      <pubDate>Sat, 23 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/catt/</guid>
+      <title>Simulating Self-Organization during Strategic Change: Implications for Organizational Design</title>
+      <link>/publication/2019ci/</link>
+      <pubDate>Tue, 11 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>/publication/2019ci/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
@@ -1430,7 +1326,7 @@ gapminder %&amp;gt;%
 &lt;p&gt;&lt;u&gt;September 2020&lt;/u&gt;: A co-authored &lt;strong&gt;research article&lt;/strong&gt; on &lt;strong&gt;enterprise risk complexity&lt;/strong&gt; with &lt;a href=&#34;https://engineering.purdue.edu/CE/People/view_person?resource_id=2154&#34;&gt;Dr. Joe Sinfield&lt;/a&gt; is currently in early draft stage. It views enterprise risk management from a complexity science perspective and is intended for the journal Risk Analysis.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;u&gt;September 2020&lt;/u&gt;: A co-authored &lt;strong&gt;research article&lt;/strong&gt; on &lt;strong&gt;pathways to enterprise resilience&lt;/strong&gt; with &lt;a href=&#34;https://engineering.purdue.edu/CE/People/view_person?resource_id=2154&#34;&gt;Dr. Joe Sinfield&lt;/a&gt; is currently in late draft stage. It distills hitherto findings from my research, and is intended for executive redearship.&lt;/p&gt;
+&lt;p&gt;&lt;u&gt;September 2020&lt;/u&gt;: A co-authored &lt;strong&gt;research article&lt;/strong&gt; on &lt;strong&gt;pathways to enterprise resilience&lt;/strong&gt; with &lt;a href=&#34;https://engineering.purdue.edu/CE/People/view_person?resource_id=2154&#34;&gt;Dr. Joe Sinfield&lt;/a&gt; is currently in late draft stage. It distills hitherto findings from my research, and is intended for executive readership.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;u&gt;August 2020&lt;/u&gt;: Attended the Academy of Management&amp;rsquo;s &lt;strong&gt;paper development workshop on automated content analysis&lt;/strong&gt; and participated in round-table discussions with brilliant academy mentors &lt;a href=&#34;https://www.business.pitt.edu/people/lingling-pan&#34;&gt;Pan Lingling&lt;/a&gt; and &lt;a href=&#34;https://apps.ualberta.ca/directory/person/thanniga&#34;&gt;Tim Hannigan&lt;/a&gt;.&lt;/p&gt;

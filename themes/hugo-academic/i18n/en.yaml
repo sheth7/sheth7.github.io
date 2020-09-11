@@ -84,10 +84,10 @@
 # About widget
 
 - id: research_interests
-  translation: Research Interests
+  translation: Research Areas
 
 - id: other_interests
-  translation: Other Interests
+  translation: Interests
 
 - id: education
   translation: Education
