@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>test | Ananya Sheth</title>
+    <link>/category/test/</link>
+      <atom:link href="/category/test/index.xml" rel="self" type="application/rss+xml" />
+    <description>test</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Ananya Sheth 2020</copyright><lastBuildDate>Fri, 11 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu6638cac1dadfb55a27519b9e8d5e6245_25098_512x512_fill_lanczos_center_2.png</url>
+      <title>test</title>
+      <link>/category/test/</link>
+    </image>
+    
+    <item>
+      <title>My test post</title>
+      <link>/post/my-test-post/</link>
+      <pubDate>Fri, 11 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>/post/my-test-post/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
