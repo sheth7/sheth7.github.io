@@ -10,8 +10,10 @@ light = false
 #primary = "#376F70"
 primary = "#14bdad"
 
+#non-matte black #222629
+
 # Menu
-menu_primary = "#222629"
+menu_primary = "#151515"
 # menu_text = "#fff"
 menu_text = "#fff"
 menu_text_active = "#14bdad"
@@ -24,8 +26,8 @@ menu_title = "#14bdad"
 #electric green color - #14bdad
 
 # Backgrounds
-background = "#222629"
-home_section_odd = "#222629"
-home_section_even = "#222629"
+background = "#151515"
+home_section_odd = "#151515"
+home_section_even = "#151515"
 
 font = "anan"
