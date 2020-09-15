@@ -59,7 +59,7 @@ organizations:
 role: PhD Candidate
 social:
 - icon: envelope
-  link: sheth7@purdue.edu
+  link: mailto:sheth7@purdue.edu
 # - icon: twitter
 #   icon_pack: fab
 #   link: https://twitter.com/AnanyaSheth
