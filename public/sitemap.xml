@@ -18,17 +18,52 @@
   </url>
   
   <url>
+    <loc>/post/a-typology-of-enterprise-risks/</loc>
+    <lastmod>2020-10-17T00:08:27-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/author/ananya-sheth/</loc>
+    <lastmod>2020-10-17T00:08:27-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/</loc>
+    <lastmod>2020-10-17T00:08:27-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2020-10-17T00:08:27-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/enterprise-risk-management/</loc>
+    <lastmod>2020-10-17T00:08:27-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-10-17T00:08:27-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/risk/</loc>
+    <lastmod>2020-10-17T00:08:27-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-10-17T00:08:27-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/publication-type/2/</loc>
     <lastmod>2020-08-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/author/ananya-sheth/</loc>
-    <lastmod>2020-08-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/authors/</loc>
     <lastmod>2020-08-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -63,27 +98,12 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2020-09-13T12:33:31-04:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tag/digital-healthcare/</loc>
     <lastmod>2020-09-13T12:33:31-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2020-09-13T12:33:31-04:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tag/smart-money/</loc>
-    <lastmod>2020-09-13T12:33:31-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-09-13T12:33:31-04:00</lastmod>
   </url>
   
@@ -143,17 +163,17 @@
   </url>
   
   <url>
-    <loc>/project/external-project/</loc>
+    <loc>/projects/external-project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/internal-project/</loc>
+    <loc>/projects/internal-project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/</loc>
+    <loc>/projects/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
