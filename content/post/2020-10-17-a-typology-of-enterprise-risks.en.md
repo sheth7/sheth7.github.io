@@ -19,6 +19,6 @@ image:
 projects: []
 ---
 
-Complex enterprises are vulnerable to a variety of risks.  To build an appreciation of the scale and variety of enterprise risks, I built a typology using latest data mining and data organization methods used by our group at Purdue's Innovation Science Laboratory.  The typology is inspired by a [recently published paper](https://www.sciencedirect.com/science/article/abs/pii/S0024630120302296) from our lab.
+Complex enterprises are vulnerable to a variety of risks.  To build an appreciation of the scale and variety of enterprise risks, I built a typology using latest data mining and data organization methods used by our group at Purdue's Innovation Science Laboratory.  The typology uses a top level structure inspired by a [recently published paper](https://www.sciencedirect.com/science/article/abs/pii/S0024630120302296) from our lab.  [Have a look at the interactive risk typology here](/post/risk_typo/risk_typo.html).
 
-Have a look at the risk typology [here](/post/risk_typo/risk_typo.html). This resource is the basis for my doctoral research and in-development articles for peer-review.  Check back soon for updates on the articles.
+This resource is the basis for my doctoral research and in-development articles for peer-review.  Check back soon for updates on the articles.
