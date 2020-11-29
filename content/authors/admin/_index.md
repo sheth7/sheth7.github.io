@@ -88,5 +88,5 @@ user_groups:
 I am a PhD candidate at Purdue University's [Innovation Science Laboratory](https://engineering.purdue.edu/Innovation/about/innoscience). My work focuses on better understanding the tension between risk management and growth in enterprises with the objective of building resilient organizations.  Specific research interests include understanding enterprise risks as complex networks and pursuing systematic, repeatable innovation using the Innovation Science lab's innovation toolkit.
 
 {{% alert note %}}
-A proposal to study enterprise risk management using complexity theory is currently under review at the National Science Foundation.
+A proposal to study enterprise risk management using complexity theory has been recommended for award by the  review panel at the National Science Foundation.
 {{% /alert %}}
