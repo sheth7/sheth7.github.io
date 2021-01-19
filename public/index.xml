@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Ananya Sheth</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Ananya Sheth 2020</copyright><lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Ananya Sheth 2021</copyright><lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu6638cac1dadfb55a27519b9e8d5e6245_25098_512x512_fill_lanczos_center_2.png</url>
       <title>Ananya Sheth</title>
@@ -31,6 +31,19 @@
 &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shortcodes&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Further talk details can easily be added to this page using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Systematic problem-specification in innovation science using language</title>
+      <link>/publication/2021ijis/</link>
+      <pubDate>Mon, 18 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>/publication/2021ijis/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -299,7 +312,19 @@ Three
 
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;September 2020&lt;/strong&gt;: Happy to share that a co-authored article was published in journal &amp;ldquo;Sustainable Futures&amp;rdquo; by Elsevier.  The article introduces a general framework of success factors that are useful when framing complex socio-technical / grand challenges.&lt;a href=&#34;https://www.researchgate.net/publication/343853213_Framing_the_Intractable_-_Comprehensive_Success_Factor_Analysis_for_Grand_Challenges&#34;&gt;Link to article&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;January 2021&lt;/strong&gt;: A co-authored article introducing parallels between the process of Innovation and Language is now published. Please access the article &lt;a href=&#34;papers/2021_IJIS.pdf&#34;&gt;here&lt;/a&gt;. Upcoming shortly is a demo, enabling you to rapidly extract Purpose-Context pairs from your data!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;December 2020&lt;/strong&gt;: Had a successful 3rd meeting with my doctoral committee&amp;hellip; Path to graduation is on the horizon!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;November 2020&lt;/strong&gt;: Happy to share that a proposal to the National Science Foundation was recommended for award! I am a co-PI on this grant and it will help strengthen my dissertation.  Please check this space for forthcoming details.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;November 2020&lt;/strong&gt;: Happy to share that a co-authored article was accepted for publication in the &amp;ldquo;International Journal of Innovation Science&amp;rdquo; by Emerald.  The article demonstrates a method to systematically pursue the front-end of the innovation process by learning analogously from the structure in Language and Natural Language Processing. The article will be up soon. Please check this space.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;September 2020&lt;/strong&gt;: Happy to share that a co-authored article was published in the journal &amp;ldquo;Sustainable Futures&amp;rdquo; by Elsevier.  The article introduces a general framework of success factors that are useful when framing complex socio-technical / grand challenges.&lt;a href=&#34;https://www.researchgate.net/publication/343853213_Framing_the_Intractable_-_Comprehensive_Success_Factor_Analysis_for_Grand_Challenges&#34;&gt;Link to article&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;September 2020&lt;/strong&gt;: A co-authored &lt;strong&gt;research article&lt;/strong&gt; on &lt;strong&gt;enterprise risk complexity&lt;/strong&gt; with &lt;a href=&#34;https://engineering.purdue.edu/CE/People/view_person?resource_id=2154&#34;&gt;Dr. Joe Sinfield&lt;/a&gt; is currently in early draft stage. It views enterprise risk management from a complexity science perspective and is intended for the journal Risk Analysis.&lt;/p&gt;
