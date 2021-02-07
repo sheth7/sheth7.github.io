@@ -1,0 +1,70 @@
+---
+title: "Generating Purpose-Contexts for Innovation Science"
+author: "Ananya Sheth"
+date: "2/2/2021"
+output: html_document
+runtime: shiny
+---
+
+# Testing this RMd document
+
+```{r setup, include=FALSE, echo=TRUE}
+library(reticulate)
+use_python("/Users/anan_mac/anaconda3/bin/python")
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<!-- virtualenv_create(envname = "python_environment", python= "python3") -->
+<!-- virtualenv_install("python_environment", packages = c('spacy', 'en_core_web_sm','sent_tokenize','word_tokenize')) -->
+<!-- reticulate::use_virtualenv("python_environment", required = TRUE) -->
+
+source_python('~/Projects/purposecontext/PC_extraction/extract_pc.py')
+
+
+<!-- ui <- fluidPage( -->
+<!--       textInput(inputId="text", label=h3("Text Input"), value = "", placeholder = "Enter your text here...", width = '80%'),  -->
+<!--       hr(), -->
+<!--       fluidRow(column(10, verbatimTextOutput("value"))) -->
+<!-- ) -->
+
+<!-- server <- function(input, output) { -->
+<!--           output$value <- renderText({ -->
+
+
+
+<!-- }) -->
+
+<!--           <!-- output$value <- renderPrint({ input$text }) --> -->
+<!-- } -->
+
+<!-- shinyApp(ui=ui, server=server) -->
+
+
+ui <- fluidPage(
+    
+  # Copy the line below to make a select box 
+  selectInput("select", label = h3("Select a Wiki paragraph for industrial processes"), 
+    choices = list("Gassification" = 1, "Nuclear reprocessing" = 2, "Anaerobic digestion" = 3), 
+    selected = 1),
+  
+  hr(),
+  fluidRow(column(3, verbatimTextOutput("value")))
+  
+)
+
+server <- function(input, output) {
+
+  # You can access the value of the widget with input$select, e.g.
+  output$value <- renderPrint({ input$select })
+
+}
+
+shinyApp(ui=ui, server=server)
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this
