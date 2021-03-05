@@ -24,6 +24,9 @@ Complex enterprises are vulnerable to a variety of risks.  To build an appreciat
 
 This resource is the basis for my doctoral research and in-development articles for peer-review.  Check back soon for updates on the articles, and please contact me at [sheth7@purdue.edu](mailto:sheth7@purdue.edu) if you are interested in the typology.
 
+![World of Risk](/img/world_of_risk.png)
+
+
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />The interactive risk typology linked in this blog is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
 <!-- Please contact [me](mailto:sheth7@purdue.edu) to get the right citation to use the typology. -->
