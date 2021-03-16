@@ -1,52 +1,48 @@
 ---
-abstract: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellusac
-  convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac
-  faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien
-  eu, pulvinar tempor diam.
+abstract: The overarching objective of this work was to develop an empirical research agenda related to Enterprise Risk Management. The focus of the presentation was work done in this direction related to a data-driven development of risk typology for supply chains and the introduction of a framework to organize risks.
 address:
-  city: Stanford
+  city: Tempe, Arizona
   country: United States
-  postcode: "94305"
-  region: CA
-  street: 450 Serra Mall
+  postcode: ""
+  region: AZ
+  street: 
 all_day: false
-authors: []
-date: "2030-06-01T13:00:00Z"
-date_end: "2030-06-01T15:00:00Z"
-event: Academic Theme Conference
-event_url: https://example.org
-featured: false
+authors: [Rachna Shah, Ananya Sheth]
+date: "2021-03-05T10:00:00Z"
+date_end: "2021-03-05T10:30:00Z"
+event: Bi-annual meeting
+event_url: https://research.wpcarey.asu.edu/supply-networks/
+featured: true
 image:
-  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/bzdhc5b3Bxs)'
+  caption: ''
   focal_point: Right
 links:
 - icon: twitter
   icon_pack: fab
   name: Follow
-  url: https://twitter.com/georgecushen
-location: Source Themes HQ
+  url: https://twitter.com/ananyasheth
+location: W.P. Carrey School of Business
 math: true
 projects:
 - internal-project
 publishDate: "2017-01-01T00:00:00Z"
-slides: example
-summary: An example talk using Academic's Markdown slides feature.
-tags: []
-title: Example Talk
+#slides: example
+summary: A talk on comprehensive supply chain risks and resiliency.
+tags: [CASN-RA, complex enterprise risks, empirical study, supply chain risks, resilience]
+title: A Comprehensive Typology of Complex SC Risk Networks using a Data Driven Approach
 url_code: ""
 url_pdf: ""
-url_slides: ""
+url_slides: "slides/20210304-CASN-RA_Shah_Sheth.pdf"
 url_video: ""
 ---
-
-{{% alert note %}}
+<!--{{% alert note %}}
 Click on the **Slides** button above to view the built-in slides feature.
-{{% /alert %}}
+{{% /alert %}}-->
 
-Slides can be added in a few ways:
+<!--Slides can be added in a few ways:
 
 - **Create** slides using Academic's [*Slides*](https://sourcethemes.com/academic/docs/managing-content/#create-slides) feature and link using `slides` parameter in the front matter of the talk file
 - **Upload** an existing slide deck to `static/` and link using `url_slides` parameter in the front matter of the talk file
 - **Embed** your slides (e.g. Google Slides) or presentation video on this page using [shortcodes](https://sourcethemes.com/academic/docs/writing-markdown-latex/).
 
-Further talk details can easily be added to this page using *Markdown* and $\rm \LaTeX$ math code.
+Further talk details can easily be added to this page using *Markdown* and $\rm \LaTeX$ math code.-->
