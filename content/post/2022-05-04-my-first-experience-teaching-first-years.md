@@ -19,5 +19,5 @@ image:
   preview_only: no
 projects: []
 ---
-![test](/img/2021_nobel_prize_1.jpeg)
+![test](/img/final_class.jpeg)
 
