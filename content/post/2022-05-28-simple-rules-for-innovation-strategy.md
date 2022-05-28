@@ -31,8 +31,6 @@ In our [latest peer-reviewed article](https://www.sciencedirect.com/science/arti
 * **Advantage** - the reasons why an offering will win in the market (WHY)
 *	**Flaws** - the likely pitfalls with an approach (WHAT NOT)
 
-![strategy-framework](/img/Technovation-framework.jpeg)
-
 Each domain has decision parameters and each decision parameter has an accompanying set of questions.  Once carefully addressed, this tool would help managers by converting complex innovation strategy decisions into simple rules for strategy formulation.  The paper illustrates this implementation for 3 well known innovations:
 
 * **Uber** as a *disruptive* innovation
@@ -40,3 +38,5 @@ Each domain has decision parameters and each decision parameter has an accompany
 * **The fiber Optic cable** as an *enabling* innovation
 
 The full paper can be read here: [Technovation](https://www.sciencedirect.com/science/article/pii/S0166497222000815)
+
+![strategy-framework](/img/Technovation-framework.jpeg)
