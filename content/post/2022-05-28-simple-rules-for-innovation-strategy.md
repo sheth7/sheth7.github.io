@@ -9,8 +9,8 @@ categories:
 tags:
   - innovation
   - simple rules
-subtitle: 'How to approach complex innovation management using a specific set of questions'
-summary: 'How to approach complex innovation management using a specific set of questions'
+subtitle: 'How to manage disruptive, modular, and enabling innovations using a specific set of questions'
+summary: 'How to manage disruptive, modular, and enabling innovations using a specific set of questions'
 authors: [Ananya Sheth]
 lastmod: ''
 featured: no
@@ -20,7 +20,6 @@ image:
   preview_only: no
 projects: []
 ---
-![strategy-framework](/img/Technovation-framework.jpeg)
 
 Innovation is key to a company’s long-term success.  So, understanding the parameters of an innovation strategy is critical.  This goes beyond new technical breakthroughs, which are themselves important but not enough to ensure business success.  To achieve market success, innovative offerings require a large set of strategic choices to be made right. 
 
@@ -31,6 +30,8 @@ In our [latest peer-reviewed article](https://www.sciencedirect.com/science/arti
 * **Scope** - the boundaries that define where the company (WHERE)
 * **Advantage** - the reasons why an offering will win in the market (WHY)
 *	**Flaws** - the likely pitfalls with an approach (WHAT NOT)
+
+![strategy-framework](/img/Technovation-framework.jpeg)
 
 Each domain has decision parameters and each decision parameter has an accompanying set of questions.  Once carefully addressed, this tool would help managers by converting complex innovation strategy decisions into simple rules for strategy formulation.  The paper illustrates this implementation for 3 well known innovations:
 
