@@ -27,7 +27,7 @@ It is well understood that not all innovation is the same.  Various prominent st
 
 In our [latest peer-reviewed article](https://www.sciencedirect.com/science/article/pii/S0166497222000815) published in Elsevier’s *Technovation journal*, we develop a simple but thorough framework that provides a common basis to cross-compare different innovation types from the lens of strategy.  The framework operates in 4 domains:
 * **Objective** - the vision and mission of the innovation (WHAT)
-* **Scope** - the boundaries that define where the company (WHERE)
+* **Scope** - the boundaries outside which the company should not try to create an impact  (WHERE and HOW)
 * **Advantage** - the reasons why an offering will win in the market (WHY)
 *	**Flaws** - the likely pitfalls with an approach (WHAT NOT)
 
