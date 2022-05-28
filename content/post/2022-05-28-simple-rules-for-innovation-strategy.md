@@ -9,8 +9,8 @@ categories:
 tags:
   - innovation
   - simple rules
-subtitle: 'How to manage disruptive, modular, and enabling innovations using a specific set of questions'
-summary: 'How to manage disruptive, modular, and enabling innovations using a specific set of questions'
+subtitle: 'How a specific set of questions helps contrast disruptive, modular, and enabling innovations'
+summary: 'How a specific set of questions helps contrast disruptive, modular, and enabling innovations'
 authors: [Ananya Sheth]
 lastmod: ''
 featured: no
