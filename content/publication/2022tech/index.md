@@ -29,7 +29,7 @@ summary: Simple rules for proactive deliberate innovation strategy development
 title: "An analytical framework to compare innovation strategies and identify simple rules"
 # url_code: '#'
 # url_dataset: '#'
-url_pdf: "2022_TECH_AIP.pdf"
+url_pdf: "papers/2022_TECH_AIP.pdf"
 # url_poster: '#'
 # url_project: ""
 #url_slides: "slides/nafips2020.pdf"
