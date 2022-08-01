@@ -6,7 +6,7 @@ education:
   courses:
   - course: PhD
     institution: Purdue University, USA
-    year: Spring 2021 (expected)
+    year: 2021 
   - course: MS in Civil Engineering
     institution: Purdue University, USA
     year: 2016
@@ -39,7 +39,7 @@ committee:
      institution: University of Iowa, USA
      year: ""
     
-email: "sheth7@purdue.edu"
+email: "asheth5@stevens.edu"
 
 research_interests:
 - Enterprise Resilience
@@ -54,15 +54,18 @@ other_interests:
 - Digital-healthcare Technology
 
 organizations:
-- name: Purdue University
-  url: "https://www.purdue.edu/"
-role: PhD Candidate
+- name: School of Business, Stevens Institute of Technology
+  url: "https://www.stevens.edu"
+  
+- name: Purdue University (Ph.D.)
+  url: "https://engineering.purdue.edu/Innovation/InnovationScience"
+role: Post-Doctoral Research Fellow
 social:
 - icon: envelope
-  link: mailto:sheth7@purdue.edu
-# - icon: twitter
-#   icon_pack: fab
-#   link: https://twitter.com/AnanyaSheth
+  link: mailto:asheth5@stevens.edu
+- icon: twitter
+  icon_pack: fab
+  link: https://twitter.com/AnanyaSheth
 - icon: google-scholar
   icon_pack: ai
   link: https://scholar.google.com/citations?user=DHhwS5wAAAAJ&hl=en
@@ -85,8 +88,14 @@ user_groups:
 - Visitors
 ---
 
-I am a PhD candidate at Purdue University's [Innovation Science Laboratory](https://engineering.purdue.edu/Innovation/about/innoscience). My work focuses on better understanding the tension between risk management and growth in enterprises with the objective of building resilient organizations.  Specific research interests include understanding enterprise risks as complex networks and pursuing systematic, repeatable innovation using the Innovation Science lab's innovation toolkit.
+I am a Post-Doctoral Research Fellow working with the Consortium for Corporate Entrepreneurship at the School of Business, Stevens Institute of Technology. 
+
+My research interests relate to [front-end Innovation](http://www.frontendinnovation.com/) in large incumbent firms and the strategic management of risk and growth to build enterprise resilience.
+
+I graduated with a PhD from Purdue University's [Institute for Innovation Science](https://engineering.purdue.edu/Innovation/InnovationScience), where I worked with industry partners to better understand the tension between risk management and the growth goals of Fortune 50 enterprises.  I view [organizations as complex adaptive systems](https://www.anansheth.com/post/enterprises-are-complex-systems/) and frame a two-pronged route to resilience, which involves thinking of risks as complex networks; and innovating systematically as compared to serendipitously.  This view is honed through years of hypotheses testing and is supported by decision frameworks and computing tools to aid implementation.  
+
+My dissertation was awarded a [grant by The National Science Foundation](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2049782&HistoricalAwards=false), and chapters from it are published or forthcoming in top peer-reviewed journals.  
 
 {{% alert note %}}
-A proposal to study enterprise risk management using complexity theory was awarded by the Decision, Risk, and Management Science Program of the National Science Foundation!
+I look forward to attending this year's Academy meeting at Seattle in-person!  I'd love to engage with fellow attendees. 
 {{% /alert %}}
