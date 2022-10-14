@@ -97,5 +97,5 @@ I graduated with a PhD from Purdue University's [Institute for Innovation Scienc
 My dissertation was awarded a [grant by The National Science Foundation](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2049782&HistoricalAwards=false), and chapters from it are published or forthcoming in top peer-reviewed journals.  
 
 {{% alert note %}}
-I look forward to attending this year's Academy meeting at Seattle in-person!  I'd love to engage with fellow attendees. 
+A co-authored paper on **Risk Intelligence for Enterprise Resilience** has been provisionally accepted for publication in the **MIT Sloan Management Review**. 
 {{% /alert %}}
