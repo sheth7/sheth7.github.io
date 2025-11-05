@@ -2,59 +2,140 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ananya Sheth</title>
-    <link>/author/ananya-sheth/</link>
-      <atom:link href="/author/ananya-sheth/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://anansheth.com/author/ananya-sheth/</link>
+      <atom:link href="https://anansheth.com/author/ananya-sheth/index.xml" rel="self" type="application/rss+xml" />
     <description>Ananya Sheth</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Ananya Sheth 2021</copyright><lastBuildDate>Mon, 18 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Ananya Sheth 2025</copyright><lastBuildDate>Fri, 28 Oct 2022 11:00:00 +0000</lastBuildDate>
     <image>
-      <url>/images/icon_hu6638cac1dadfb55a27519b9e8d5e6245_25098_512x512_fill_lanczos_center_2.png</url>
+      <url>https://anansheth.com/images/icon_hucdb28eb2d9bc71719683d0e0805b9e5c_26783_512x512_fill_lanczos_center_2.png</url>
       <title>Ananya Sheth</title>
-      <link>/author/ananya-sheth/</link>
+      <link>https://anansheth.com/author/ananya-sheth/</link>
     </image>
     
     <item>
-      <title>Systematic problem-specification in innovation science using language</title>
-      <link>/publication/2021ijis/</link>
-      <pubDate>Mon, 18 Jan 2021 00:00:00 +0000</pubDate>
-      <guid>/publication/2021ijis/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+      <title>Defining a typology of exploratory innovations in large-incumbent firms</title>
+      <link>https://anansheth.com/talk/stevens-amr/</link>
+      <pubDate>Fri, 28 Oct 2022 11:00:00 +0000</pubDate>
+      <guid>https://anansheth.com/talk/stevens-amr/</guid>
+      <description>&lt;!--&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to import publication metadata into their reference management software.
+    Click on the &lt;strong&gt;Slides&lt;/strong&gt; button above to view the built-in slides feature.
   &lt;/div&gt;
 &lt;/div&gt;
+--&gt;
+&lt;!--Slides can be added in a few ways:
+
+- **Create** slides using Academic&#39;s [*Slides*](https://sourcethemes.com/academic/docs/managing-content/#create-slides) feature and link using `slides` parameter in the front matter of the talk file
+- **Upload** an existing slide deck to `static/` and link using `url_slides` parameter in the front matter of the talk file
+- **Embed** your slides (e.g. Google Slides) or presentation video on this page using [shortcodes](https://sourcethemes.com/academic/docs/writing-markdown-latex/).
+
+Further talk details can easily be added to this page using *Markdown* and $\rm \LaTeX$ math code.--&gt;&lt;blockquote&gt;
+&lt;/blockquote&gt;
 </description>
     </item>
     
     <item>
-      <title>Framing the Intractable -- Comprehensive Success Factor Analysis for Grand Challenges</title>
-      <link>/publication/2020sftr/</link>
-      <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
-      <guid>/publication/2020sftr/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
+      <title>Simple Rules for Innovation Strategy</title>
+      <link>https://anansheth.com/post/simple-rules-for-innovation-strategy/</link>
+      <pubDate>Sat, 28 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://anansheth.com/post/simple-rules-for-innovation-strategy/</guid>
+      <description>&lt;p&gt;Innovation is key to a company’s long-term success.  So, understanding the parameters of an innovation strategy is critical.  This goes beyond new technical breakthroughs, which are themselves important but not enough to ensure business success.  To achieve market success, innovative offerings require a large set of strategic choices to be made right.&lt;/p&gt;
+&lt;p&gt;It is well understood that not all innovation is the same.  Various prominent studies have highlighted innovation archetypes such as transformational innovations, disruptive innovations, modular innovations, enabling innovations, architectural innovations and so on.  However, these have been studied and developed as ‘special cases’ and so they explain very specific decision contexts.  This incomparable, disparate nature of innovation archetypes leads to confusion and a lack of clarity on how they can be implemented, say, to a company’s new offering.&lt;/p&gt;
+&lt;p&gt;In our 
+&lt;a href=&#34;https://www.sciencedirect.com/science/article/pii/S0166497222000815&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;latest peer-reviewed article&lt;/a&gt; published in Elsevier’s &lt;em&gt;Technovation journal&lt;/em&gt;, we develop a simple but thorough framework that provides a common basis to cross-compare different innovation types from the lens of strategy.  The framework operates in 4 domains:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Objective&lt;/strong&gt; - the vision and mission of the innovation (WHAT)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Scope&lt;/strong&gt; - the boundaries outside which the company should not try to create an impact  (WHERE and HOW)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Advantage&lt;/strong&gt; - the reasons why an offering will win in the market (WHY)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flaws&lt;/strong&gt; - the likely pitfalls with an approach (WHAT NOT)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Each domain has decision parameters and each decision parameter has an accompanying set of questions.  Once carefully addressed, this tool would help managers by converting complex innovation strategy decisions into simple rules for strategy formulation.  The paper illustrates this implementation for 3 well known innovations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Uber&lt;/strong&gt; as a &lt;em&gt;disruptive&lt;/em&gt; innovation&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bicycle Gears&lt;/strong&gt; as a &lt;em&gt;modular&lt;/em&gt; innovation&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The fiber Optic cable&lt;/strong&gt; as an &lt;em&gt;enabling&lt;/em&gt; innovation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The full paper can be read here: 
+&lt;a href=&#34;https://www.sciencedirect.com/science/article/pii/S0166497222000815&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Technovation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://anansheth.com/img/Technovation-framework.jpeg&#34; alt=&#34;strategy-framework&#34;&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
-      <title>Simulating Self-Organization during Strategic Change: Implications for Organizational Design</title>
-      <link>/publication/2019ci/</link>
-      <pubDate>Tue, 11 Jun 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/2019ci/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
+      <title>My first experience teaching first-year undergrads</title>
+      <link>https://anansheth.com/post/my-first-experience-teaching-first-years/</link>
+      <pubDate>Wed, 04 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://anansheth.com/post/my-first-experience-teaching-first-years/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://anansheth.com/img/final_class.jpeg&#34; alt=&#34;test&#34;&gt;&lt;/p&gt;
 </description>
     </item>
     
-  </channel>
-</rss>
-&lt;/a&gt; to get the right citation to use the typology.&lt;/p&gt;
+    <item>
+      <title>Enterprises are Complex Systems</title>
+      <link>https://anansheth.com/post/enterprises-are-complex-systems/</link>
+      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://anansheth.com/post/enterprises-are-complex-systems/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://anansheth.com/img/2021_nobel_prize_1.jpeg&#34; alt=&#34;test&#34;&gt;&lt;/p&gt;
+&lt;p&gt;2021 was the first time that a Nobel Prize was awarded for “groundbreaking contributions to our understanding of complex systems”.  As a researcher studying organizations as Complex Adaptive Systems, I find this very exciting!&lt;/p&gt;
+&lt;p&gt;Since the award, there has been much exposition of Complex Systems Theory.  This post briefly explains a subset class- Complex Adaptive Systems (CAS) as a contrasting viewing lens for enterprises, and its usefulness in building enterprise resilience.&lt;/p&gt;
+&lt;p&gt;Modern enterprises are cyber-physical systems operating at very large scales, and although they possess management control structures such as governing boards, top-executive teams, and hierarchy for accountability, they regularly come across complexity in several forms. To comprehend the scale of operations - think of the digital products we use everyday. For example, although Google is a conventionally structured corporate organization, it relies on its base of algorithms to cater to upwards of 5 billion daily searches. In contrast, Wikipedia which gets about that many visits a month (still very high scale) is de-centralized and distinct in its organization. This de-centralized unique architecture is even more clearly witnessed in the method of operation of the open-source community. Essentially, enterprises are increasingly becoming more dependent on the cyber-physical assets, which are subject to risk.  Systems that can anticipate risk events and mitigate them prior to consequences will likely be more resilient.&lt;/p&gt;
+&lt;p&gt;To build resilience in such complex enterprises, aspiring leaders need to look beyond &amp;ldquo;resources&amp;rdquo; and at the sources of their competitive advantage, such as mechanisms to create “adaptation”. They would benefit by re-calibrating their view of enterprises from fully-controllable and governable machines to complex adaptive self-organizing systems.&lt;/p&gt;
+&lt;p&gt;Looking back a hundred years to the Industrial Revolution, there have been several “theories of the firm”, which attempt to explain fundamental reasons for enterprise existence and enterprise objectives. Among them, the “evolutionary theory” has made several seminal contributions most recently. It views an enterprise as a reactor to change and creator of change for competitive advantage. The Resource Based View (RBV), which stems from the evolutionary theory, has the objective of maintaining “the stability of competitive advantage” and suggests that the competitive advantage of a firm over its competitors is constrained by the resources it possesses. Yet competitive advantage has its root in phenomena such as “innovation” and “resilience”, which are not explained by the availability and access (or lack thereof) to resources. Startups that lack resources and/or access can successfully build lasting competitive advantage. CAS provides a lens for this.&lt;/p&gt;
+&lt;p&gt;CASs are imagined as systems that are not particularly under the control of an “orchestrator” and instead  their behavior is governed in a hybrid manner via interactions between systems elements (at different scales)  and interactions between the external forces on the system. CAS are easily found all around us in natural systems. For instance, think of a David Attenborough documentary that films a school of fish forming beautiful structures under water. In fact, a individual fish are acting individually and collectively they are &amp;ldquo;self-organizing&amp;rdquo; to fend off larger predator fish.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://anansheth.com/img/school_of_fish.gif&#34; alt=&#34;A school of fish in action&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Alternatively, think of self-organizing flocks of starling swarms that form incredible visions in the sky while foraging and outsmart Peregrine Falcon predators with 
+&lt;a href=&#34;https://www.lancswt.org.uk/blog/charlotte-varela/starling-murmuration-facts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;murmuration manoeuvres&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://anansheth.com/img/starlings_flock.gif&#34; alt=&#34;A flock of starlings demonstrates complex formations in the evening sky&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Even with non-natural systems, imagine difficult to predict traffic patterns that have the potential to be resolved by simple non-intuitive fixes. Interestingly, science and engineering draw inspiration from these self-organizing systems and model their behavior using simple rules or heuristics at the individual (agent) level.  Humans barely act similarly and human organizations are much more complex at the agent level. Therefore, modeling them is not the right approach.  However, drawing inspiration from self-organizing systems can help us understand complex enterprise better.&lt;/p&gt;
+&lt;p&gt;Re-imagining enterprises as CAS is not straightforward as we are conditioned to think of them as “mechanistic” structures with hierarchical chains of authority and centralized decision-making. Nowhere is this more clearly visible than in military organizations. However, it is also easy to see how this view is limiting when it comes to desirable organizational properties such as “innovation”, “resilience”, and ironically “leader-follower-ship”, which are often believed to take place “organically” within organizations.  As enterprises operate in more complex business environments, these properties become more sought after by stability-seeking organizations, the learning from the CAS analogy becomes important.&lt;/p&gt;
+&lt;p&gt;Pragmatic applications of this view have been developed over the past 20 years by scholars to understand the behavior of entire economies 
+&lt;a href=&#34;https://doi.org/10.1007/978-3-642-50007-7_3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;JH Holland 2002&lt;/a&gt;, and more recently complex supply-chains 
+&lt;a href=&#34;https://doi.org/10.1016/S0272-6963%2800%2900068-1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Choi et. al 2001&lt;/a&gt;;  
+&lt;a href=&#34;https://onlinelibrary.wiley.com/doi/pdf/10.1111/jbl.12270?casa_token=_M-UEm5mDvAAAAAA:KsoHjtLLMQ3BLMcGNyBzEve8OmiSgsc3pL8NIg0SMnZQQj2jw7PY2j0ZDh9KKxKSswgLPR7znOjNyHJXuQ&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Novak et. al 2021&lt;/a&gt;, business models 
+&lt;a href=&#34;https://doi.org/10.1016/j.lrp.2020.102030&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Liu et. al 2020&lt;/a&gt;, 
+&lt;a href=&#34;https://www.ingentaconnect.com/contentone/hsp/jrmfi/2021/00000014/00000004/art00007&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;risk management&lt;/a&gt;, and leader-followership in human organizations 
+&lt;a href=&#34;https://arxiv.org/pdf/2007.08521.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sheth and Sinfield 2019&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Additionally, building enterprise resiliency needs a holistic understanding of risks, which actually are a complex network of interacting risk factors triggered by external events. An ongoing study on risk networks adopts the CAS view in building a networked view of corporate risks. This work is building a knowledge resource base, which will evetually be useful to explain mechanisms of cascading risks and to predict the varying impacts of risk events on enterprises proactively. The project is supported by the National Science Foundation (NSF) 
+&lt;a href=&#34;https://www.nsf.gov/awardsearch/showAward?AWD_ID=2049782&amp;amp;HistoricalAwards=false&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;award #2049782&lt;/a&gt;. It is in alignment with NSF’s mission to promote the progress of science, and via that, advance national prosperity and welfare.&lt;/p&gt;
+&lt;p&gt;In conclusion, the CAS view is perhaps the best alternative to view complex enterprises, especially as leaders begin to grapple with ever increasing complexity and seek out enterprise resilience.&lt;/p&gt;
 </description>
+    </item>
+    
+    <item>
+      <title>A Comprehensive Typology of Complex SC Risk Networks using a Data Driven Approach</title>
+      <link>https://anansheth.com/talk/casn-ra/</link>
+      <pubDate>Fri, 05 Mar 2021 10:00:00 +0000</pubDate>
+      <guid>https://anansheth.com/talk/casn-ra/</guid>
+      <description>&lt;!--&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click on the &lt;strong&gt;Slides&lt;/strong&gt; button above to view the built-in slides feature.
+  &lt;/div&gt;
+&lt;/div&gt;
+--&gt;
+&lt;!--Slides can be added in a few ways:
+
+- **Create** slides using Academic&#39;s [*Slides*](https://sourcethemes.com/academic/docs/managing-content/#create-slides) feature and link using `slides` parameter in the front matter of the talk file
+- **Upload** an existing slide deck to `static/` and link using `url_slides` parameter in the front matter of the talk file
+- **Embed** your slides (e.g. Google Slides) or presentation video on this page using [shortcodes](https://sourcethemes.com/academic/docs/writing-markdown-latex/).
+
+Further talk details can easily be added to this page using *Markdown* and $\rm \LaTeX$ math code.--&gt;&lt;blockquote&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A Typology of Enterprise Risks</title>
+      <link>https://anansheth.com/post/a-typology-of-enterprise-risks/</link>
+      <pubDate>Sat, 17 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>https://anansheth.com/post/a-typology-of-enterprise-risks/</guid>
+      <description>&lt;p&gt;Complex enterprises are vulnerable to a variety of risks.  To build an appreciation of the scale and variety of enterprise risks, I built a typology using latest data mining and data organization methods used by our group at Purdue&amp;rsquo;s Innovation Science Laboratory.  The typology uses a top level structure inspired by a 
+&lt;a href=&#34;https://www.sciencedirect.com/science/article/abs/pii/S0024630120302296&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;recently published paper&lt;/a&gt; from our lab.  The typology contains 700+ non-unique risks faced by enterprises, and is the base for a recent National Science Foundation award.&lt;/p&gt;
+&lt;!-- [Have a look at the interactive risk typology here](/post/risk_typo/risk_typo.html). --&gt;
+&lt;p&gt;This resource is the basis for my doctoral research and in-development articles for peer-review.  Check back soon for updates on the articles, and please contact me at 
+&lt;a href=&#34;mailto:sheth7@purdue.edu&#34;&gt;sheth7@purdue.edu&lt;/a&gt; if you are interested in the typology.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://anansheth.com/img/world_of_risk.png&#34; alt=&#34;World of Risk&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by/4.0/&#34;&gt;&lt;img alt=&#34;Creative Commons License&#34; style=&#34;border-width:0&#34; src=&#34;https://i.creativecommons.org/l/by/4.0/88x31.png&#34; /&gt;&lt;/a&gt;&lt;br /&gt;The interactive risk typology linked in this blog is licensed under a &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by/4.0/&#34;&gt;Creative Commons Attribution 4.0 International License&lt;/a&gt;.&lt;/p&gt;
+&lt;!-- Please contact [me](mailto:sheth7@purdue.edu) to get the right citation to use the typology. --&gt;</description>
     </item>
     
   </channel>

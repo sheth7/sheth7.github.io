@@ -3,191 +3,371 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
+    <loc>https://anansheth.com/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/talk/example/</loc>
+    <loc>https://anansheth.com/examples/talks/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/talk/</loc>
+    <loc>https://anansheth.com/examples/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication-type/2/</loc>
+    <loc>https://anansheth.com/publication-type/2/</loc>
+    <lastmod>2023-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/author/ananya-sheth/</loc>
+    <lastmod>2023-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/authors/</loc>
+    <lastmod>2023-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/author/joseph-v.-sinfield/</loc>
+    <lastmod>2023-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/publication_types/</loc>
+    <lastmod>2023-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/publication/</loc>
+    <lastmod>2023-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/publication/2023smr/</loc>
+    <lastmod>2023-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/amr/</loc>
+    <lastmod>2022-10-28T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/author/ananya-sheth/</loc>
+    <lastmod>2022-10-28T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/talk/stevens-amr/</loc>
+    <lastmod>2022-10-28T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/exploitation-exploration/</loc>
+    <lastmod>2022-10-28T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/innovation/</loc>
+    <lastmod>2022-10-28T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/innovation-streams/</loc>
+    <lastmod>2022-10-28T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/author/peter-koen/</loc>
+    <lastmod>2022-10-28T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/talk/</loc>
+    <lastmod>2022-10-28T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tags/</loc>
+    <lastmod>2022-10-28T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/theoretical-study/</loc>
+    <lastmod>2022-10-28T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/author/andrew-kusiak/</loc>
+    <lastmod>2022-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/publication/2022jiii/</loc>
+    <lastmod>2022-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/categories/</loc>
+    <lastmod>2022-05-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/category/innovation/</loc>
+    <lastmod>2022-05-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/post/</loc>
+    <lastmod>2022-05-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/simple-rules/</loc>
+    <lastmod>2022-05-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/post/simple-rules-for-innovation-strategy/</loc>
+    <lastmod>2022-05-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/category/strategy/</loc>
+    <lastmod>2022-05-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/publication/2022tech/</loc>
+    <lastmod>2022-05-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/entrepreneurial-thinking/</loc>
+    <lastmod>2022-05-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/post/my-first-experience-teaching-first-years/</loc>
+    <lastmod>2022-05-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/teaching/</loc>
+    <lastmod>2022-05-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/category/teaching/</loc>
+    <lastmod>2022-05-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/publication-type/4/</loc>
+    <lastmod>2022-04-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/author/ananya-sheth-co-pi/</loc>
+    <lastmod>2022-04-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/publication/2022nsf/</loc>
+    <lastmod>2022-04-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/author/joseph-v.-sinfield-pi/</loc>
+    <lastmod>2022-04-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/category/cas/</loc>
+    <lastmod>2021-10-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/complex-adaptive-systems/</loc>
+    <lastmod>2021-10-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/post/enterprises-are-complex-systems/</loc>
+    <lastmod>2021-10-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/resilience/</loc>
+    <lastmod>2021-10-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/talk/casn-ra/</loc>
+    <lastmod>2021-03-05T10:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/casn-ra/</loc>
+    <lastmod>2021-03-05T10:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/complex-enterprise-risks/</loc>
+    <lastmod>2021-03-05T10:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/empirical-study/</loc>
+    <lastmod>2021-03-05T10:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/author/rachna-shah/</loc>
+    <lastmod>2021-03-05T10:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/supply-chain-risks/</loc>
+    <lastmod>2021-03-05T10:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/category/innovation-science/</loc>
+    <lastmod>2020-09-13T12:33:31-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/nlp/</loc>
+    <lastmod>2020-09-13T12:33:31-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/tag/purpose-context/</loc>
+    <lastmod>2020-09-13T12:33:31-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/post/innovation-science-purpose-contexts/</loc>
+    <lastmod>2020-09-13T12:33:31-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://anansheth.com/publication/2021ijis/</loc>
     <lastmod>2021-01-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/author/ananya-sheth/</loc>
-    <lastmod>2021-01-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/authors/</loc>
-    <lastmod>2021-01-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/author/joseph-v.-sinfield/</loc>
-    <lastmod>2021-01-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication_types/</loc>
-    <lastmod>2021-01-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication/</loc>
-    <lastmod>2021-01-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication/2021ijis/</loc>
-    <lastmod>2021-01-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/a-typology-of-enterprise-risks/</loc>
+    <loc>https://anansheth.com/post/a-typology-of-enterprise-risks/</loc>
     <lastmod>2020-10-17T00:08:27-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/author/ananya-sheth/</loc>
+    <loc>https://anansheth.com/tag/enterprise-risk-management/</loc>
     <lastmod>2020-10-17T00:08:27-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://anansheth.com/category/risk/</loc>
     <lastmod>2020-10-17T00:08:27-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/enterprise-risk-management/</loc>
-    <lastmod>2020-10-17T00:08:27-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-10-17T00:08:27-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/risk/</loc>
-    <lastmod>2020-10-17T00:08:27-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-10-17T00:08:27-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication/2020sftr/</loc>
+    <loc>https://anansheth.com/publication/2020sftr/</loc>
     <lastmod>2020-08-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/author/romika-r.-kotian/</loc>
+    <loc>https://anansheth.com/author/romika-r.-kotian/</loc>
     <lastmod>2020-08-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/vc-university-endowments-growth-strategy/</loc>
+    <loc>https://anansheth.com/post/vc-university-endowments-growth-strategy/</loc>
     <lastmod>2020-09-13T12:33:31-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/digital-healthcare/</loc>
+    <loc>https://anansheth.com/tag/digital-healthcare/</loc>
     <lastmod>2020-09-13T12:33:31-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/smart-money/</loc>
+    <loc>https://anansheth.com/tag/smart-money/</loc>
     <lastmod>2020-09-13T12:33:31-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/university-endowments/</loc>
+    <loc>https://anansheth.com/tag/university-endowments/</loc>
     <lastmod>2020-09-13T12:33:31-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/category/vc/</loc>
+    <loc>https://anansheth.com/category/vc/</loc>
     <lastmod>2020-09-13T12:33:31-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication-type/1/</loc>
+    <loc>https://anansheth.com/publication-type/1/</loc>
     <lastmod>2019-06-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/2019ci/</loc>
+    <loc>https://anansheth.com/publication/2019ci/</loc>
     <lastmod>2019-06-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/slides/</loc>
+    <loc>https://anansheth.com/slides/</loc>
     <lastmod>2019-02-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/slides/example/</loc>
+    <loc>https://anansheth.com/slides/example/</loc>
     <lastmod>2019-02-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/privacy/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+    <loc>https://anansheth.com/news/</loc>
+    <lastmod>2017-12-01T00:00:00-08:00</lastmod>
   </url>
   
   <url>
-    <loc>/terms/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/news/</loc>
-    <lastmod>2017-12-01T00:00:00-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/deep-learning/</loc>
+    <loc>https://anansheth.com/tag/deep-learning/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/demo/</loc>
+    <loc>https://anansheth.com/tag/demo/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/projects/external-project/</loc>
+    <loc>https://anansheth.com/projects/external-project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/projects/internal-project/</loc>
+    <loc>https://anansheth.com/projects/internal-project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/projects/</loc>
+    <loc>https://anansheth.com/projects/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/misc/</loc>
+    <loc>https://anansheth.com/misc/</loc>
   </url>
   
   <url>
-    <loc>/author/%E5%90%B3%E6%81%A9%E9%81%94/</loc>
+    <loc>https://anansheth.com/author/%E5%90%B3%E6%81%A9%E9%81%94/</loc>
   </url>
   
 </urlset>

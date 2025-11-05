@@ -2,21 +2,114 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Publications | Ananya Sheth</title>
-    <link>/publication/</link>
-      <atom:link href="/publication/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://anansheth.com/publication/</link>
+      <atom:link href="https://anansheth.com/publication/index.xml" rel="self" type="application/rss+xml" />
     <description>Publications</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Ananya Sheth 2021</copyright><lastBuildDate>Mon, 18 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Ananya Sheth 2025</copyright><lastBuildDate>Tue, 13 Jun 2023 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/images/icon_hu6638cac1dadfb55a27519b9e8d5e6245_25098_512x512_fill_lanczos_center_2.png</url>
+      <url>https://anansheth.com/images/icon_hucdb28eb2d9bc71719683d0e0805b9e5c_26783_512x512_fill_lanczos_center_2.png</url>
       <title>Publications</title>
-      <link>/publication/</link>
+      <link>https://anansheth.com/publication/</link>
     </image>
     
     <item>
+      <title>Risk Intelligence and the Resilient Company</title>
+      <link>https://anansheth.com/publication/2023smr/</link>
+      <pubDate>Tue, 13 Jun 2023 00:00:00 +0000</pubDate>
+      <guid>https://anansheth.com/publication/2023smr/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Resiliency of Smart Manufacturing Enterprises via Information Integration</title>
+      <link>https://anansheth.com/publication/2022jiii/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://anansheth.com/publication/2022jiii/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>An analytical framework to compare innovation strategies and identify simple rules</title>
+      <link>https://anansheth.com/publication/2022tech/</link>
+      <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://anansheth.com/publication/2022tech/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Doctoral Dissertation Research in DRMS: Building a comprehensive understanding of enterprise risks and their interdependencies for improved risk-intelligence</title>
+      <link>https://anansheth.com/publication/2022nsf/</link>
+      <pubDate>Sat, 30 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>https://anansheth.com/publication/2022nsf/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; This Project Outcomes Report for the General Public is displayed verbatim as submitted by the Principle Investigator (PI) for this award. Any opinions, findings, and conclusions or recommendations expressed in this Report are those of the PI and do not necessarily reflect the views of the National Science Foundation; NSF has not approved or endorsed its content.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Award Title:&lt;/strong&gt; Doctoral Dissertation Research in DRMS: Building a comprehensive understanding of enterprise risks and their interdependencies for improved risk-intelligence&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Federal Award ID:&lt;/strong&gt; 2049782&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Report Submission Period:&lt;/strong&gt; 01/01/2021 to 12/31/2021&lt;/p&gt;
+&lt;p&gt;This project addressed a major gap in risk management by developing a robust inventory of the risk factors that may affect an enterprise and an understanding of the complex interdependencies between them.  This insight is foundational to build enterprise risk intelligence to foresee, and thus plan and prepare for, cascading effects caused by seemingly unrelated events.  A scientifically rigorous and data-driven approach to building risk intelligence is one of the cornerstones of creating resilient enterprises, which is critical to advancing national prosperity and welfare, thereby aligning with NSF mission. The project was carried out in 3 phases with related descriptions and outcomes as follows:&lt;/p&gt;
+&lt;p&gt;In phase 1, a comprehensive enterprise-agnostic inventory of risk factors was developed through automated information extraction from a corpus of hundreds of thousands of public and private documents describing risks to businesses of U.S. S&amp;amp;P 500 corporations.  The risk factor inventory is hosted on the Purdue University Research Repository (PURR) 
+&lt;a href=&#34;https://purr.purdue.edu/projects/nsfriskintelligence/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;project&lt;/a&gt; and appended to the co-PI&amp;rsquo;s doctoral dissertation (
+&lt;a href=&#34;https://doi.org/10.25394/PGS.15062880.v1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sheth AB, 2021&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;In phase 2, the extracted risk factors were organized into a typology of enterprise risks via thematic analysis.  The outcome is an organized enterprise risk typology that can be readily queried by both researchers and practitioners alike to build awareness of risk forms and identify potentially significant risk linkages.  The typology has 5 levels, with level-5 being the broadest and containing 800+ risk factors grouped into 76 level-4 risk categories.  Risk categories belong to 18 level-3 business functions housed under 4 key business areas at level-2, which themselves are organized based on core value functions of an enterprise at level-1.  
+&lt;a href=&#34;#fig-1&#34;&gt;Figure 1&lt;/a&gt; below represents the first 4 levels of the enterprise risk typology.  It is the first such typology of this scale available to the field.&lt;/p&gt;
+&lt;p&gt;&lt;a name =&#34;fig-1&#34;&gt;&lt;/a&gt;
+| &lt;img src=&#34;figures/L1-L4-risk-network-red-center.png&#34; alt=&#34;Figure 1&#34;&gt; |
+|:&amp;ndash;:|
+|&lt;b&gt; Figure 1 - Enterprise risk typology levels 1 through 4 &lt;/b&gt; &lt;br /&gt; This image displays Level 1 to 4 of the enterprise risk typology developed as part of the NSF DDRIG award # 2049782. (Level 5 contains 800+ risk factors and can be found on the PURR database) |&lt;/p&gt;
+&lt;p&gt;In phase 3, the risk typology was converted into multiple complex quantified risk networks (QRNs).  Expert input was utilized to develop an understanding of inter-risk relationships.  A fully anonymous interactive survey was developed using the Qualtrics platform and circulated among academic experts and business leaders.  Knowledge of interactions between business functions (3-3) and between risk categories and business functions (4-3) was solicited from 60 experts with deep risk knowledge, operational experience, decision-making authority, or board membership in large established firms.  Responses covered 10 economic sectors and 26 industries.  A total of 18 risk networks were developed and are hosted on PURR for researchers and practitioners.  An example of inter-function interactions is shown in 
+&lt;a href=&#34;#fig-2&#34;&gt;Figure 2&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name =&#34;fig-2&#34;&gt;&lt;/a&gt;
+| &lt;img src=&#34;figures/L2-L2-Operating_expense_control.png&#34; alt=&#34;Figure 2&#34;&gt; |
+|:&amp;ndash;:|
+|&lt;b&gt; Figure 2 - Level 3-3 Risk Interactions &lt;/b&gt; &lt;br /&gt; Illustration of inter-function links (level 3-3). Edges represent impact between functions. Width of edges correlates to impact strength. Wider edges imply more significant relationship (with Governance), and thinner edges imply less significant relationship (with Competitive Intelligence) |&lt;/p&gt;
+&lt;p&gt;Importantly, the networks highlight that some business functions such as &amp;lsquo;Governance&amp;rsquo; uniformly affect all other functions.  However, their impact may not be uniformly consequential across functions in comparison to others such as &amp;lsquo;Credit access&amp;rsquo;, which has fewer but more consequential impacts, for example, on &amp;lsquo;Financial capital management&amp;rsquo; or on &amp;lsquo;Sourcing&amp;rsquo; as shown in 
+&lt;a href=&#34;#fig-3&#34;&gt;Figure 3&lt;/a&gt;.  A complete comparison is provided on the PURR repository.&lt;/p&gt;
+&lt;p&gt;&lt;a name =&#34;fig-3&#34;&gt;&lt;/a&gt;
+|&lt;img src=&#34;figures/L3-L3-functions_comparison.png&#34; alt=&#34;Figure 3&#34;&gt;|
+|:&amp;ndash;:|
+|&lt;b&gt; Figure 3 - Level 3-3 Inter-function interactions &lt;/b&gt; &lt;br /&gt; Comparison of level 3-3 interactions. Governance (left) connects uniformly to all other business functions, whereas Credit access (right) does not impact similarly. The impact of Credit access on certain functions (Product management) is stronger than that of Governance |&lt;/p&gt;
+&lt;p&gt;Beyond inter-function relationships, expert input helped quantify the relationships between risk categories and business functions, i.e., level 4-3.  A resulting network with 75 nodes and 1044 weighted interlinks clearly indicates the complexity of enterprise risk management.  
+&lt;a href=&#34;#fig-4&#34;&gt;Figure 4&lt;/a&gt; reveals that despite the large array of functions and risk categories, a smaller number are particularly high impact, as indicated by a measure of their role in connecting other risks in the network, known as &amp;lsquo;Betweenness Centrality&amp;rsquo;.&lt;/p&gt;
+&lt;p&gt;&lt;a name =&#34;fig-4&#34;&gt;&lt;/a&gt;
+|&lt;img src=&#34;figures/L4-L3-full_network_weighted_links_with_labels.png&#34; alt=&#34;Figure 4&#34;&gt;|
+|:&amp;ndash;:|
+|&lt;b&gt; Figure 4 - Linkages between Level 4 risks and level 3 functions &lt;/b&gt; &lt;br /&gt; Edge width directly correlates with Edge-Betweenness such that greater width implies connection between two dense clusters. Purple links imply a high impact relationship between the risk factor and the business function, blue imply a medium impact, and yellow imply low impact |&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#34;#fig-5&#34;&gt;Figure 5&lt;/a&gt; relates &amp;lsquo;Edge-Betweenness&amp;rsquo;, which is an indicator of the presence of dense sub-network clusters within the larger network, to the &amp;lsquo;Impact relationship&amp;rsquo; of the network, which is a quantitative measure of how much a risk category affects a function.  The figure shows edges with high &amp;lsquo;Betweenness&amp;rsquo; with both high and low impact relationships, thereby confirming the existence of dense clusters with critical links.&lt;/p&gt;
+&lt;p&gt;&lt;a name =&#34;fig-5&#34;&gt;&lt;/a&gt;
+|&lt;img src=&#34;figures/L4-L3-edge_betweenness-impact_relationships.png&#34; alt=&#34;Figure 5&#34;&gt;|
+|:&amp;ndash;:|
+|&lt;b&gt; Figure 5 - Risk Impact Evaluation (Edge-Betweenness vs. Impact)) &lt;/b&gt; &lt;br /&gt; This figure helps to identify particularly influential QRN relationships. Points in the top right corner are characterized by high-impact relationships with high levels of Edge-Betweenness. These edges are highly central to the risk and stability of the network |&lt;/p&gt;
+&lt;p&gt;For example, the &amp;lsquo;Product management&amp;rsquo; function and &amp;lsquo;Product regulation&amp;rsquo; and &amp;lsquo;Product liability&amp;rsquo; risk categories share edges that have high &amp;lsquo;Betweeness&amp;rsquo; implying their relevance to several other risk interrelationships.  However, and importantly, &amp;lsquo;Product liability&amp;rsquo; risks have low impact on the function overall, whereas &amp;lsquo;Product regulation&amp;rsquo; risks have a high impact.  Therefore, while both are crucial risk mitigation areas to limit negative effects from cascading across the enterprise, &amp;lsquo;regulation&amp;rsquo; warrants much more attention of practitioners and researchers seeking the goal of enterprise resiliency.&lt;/p&gt;
+&lt;p&gt;The QRNs developed via this grant are resources to be further investigated to reveal insights on central and critical risks, sub-group structures in the risk network that could inform an order of risk criticality, and the cascade potential of risk events.&lt;/p&gt;
+&lt;p&gt;Overall, the research conducted via this grant contributed to the field of Enterprise Risk Management (ERM) by increasing scholarly awareness on the breadth and interconnectedness of risks affecting enterprises, and by systematically converting erstwhile obscure standalone risk factors into QRNs.&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Systematic problem-specification in innovation science using language</title>
-      <link>/publication/2021ijis/</link>
+      <link>https://anansheth.com/publication/2021ijis/</link>
       <pubDate>Mon, 18 Jan 2021 00:00:00 +0000</pubDate>
-      <guid>/publication/2021ijis/</guid>
+      <guid>https://anansheth.com/publication/2021ijis/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to import publication metadata into their reference management software.
@@ -27,9 +120,9 @@
     
     <item>
       <title>Framing the Intractable -- Comprehensive Success Factor Analysis for Grand Challenges</title>
-      <link>/publication/2020sftr/</link>
+      <link>https://anansheth.com/publication/2020sftr/</link>
       <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
-      <guid>/publication/2020sftr/</guid>
+      <guid>https://anansheth.com/publication/2020sftr/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
@@ -40,9 +133,9 @@
     
     <item>
       <title>Simulating Self-Organization during Strategic Change: Implications for Organizational Design</title>
-      <link>/publication/2019ci/</link>
+      <link>https://anansheth.com/publication/2019ci/</link>
       <pubDate>Tue, 11 Jun 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/2019ci/</guid>
+      <guid>https://anansheth.com/publication/2019ci/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.

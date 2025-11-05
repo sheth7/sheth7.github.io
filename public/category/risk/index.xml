@@ -2,29 +2,29 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Risk | Ananya Sheth</title>
-    <link>/category/risk/</link>
-      <atom:link href="/category/risk/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://anansheth.com/category/risk/</link>
+      <atom:link href="https://anansheth.com/category/risk/index.xml" rel="self" type="application/rss+xml" />
     <description>Risk</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Ananya Sheth 2021</copyright><lastBuildDate>Sat, 17 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Ananya Sheth 2025</copyright><lastBuildDate>Sat, 17 Oct 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/images/icon_hu6638cac1dadfb55a27519b9e8d5e6245_25098_512x512_fill_lanczos_center_2.png</url>
+      <url>https://anansheth.com/images/icon_hucdb28eb2d9bc71719683d0e0805b9e5c_26783_512x512_fill_lanczos_center_2.png</url>
       <title>Risk</title>
-      <link>/category/risk/</link>
+      <link>https://anansheth.com/category/risk/</link>
     </image>
     
     <item>
       <title>A Typology of Enterprise Risks</title>
-      <link>/post/a-typology-of-enterprise-risks/</link>
+      <link>https://anansheth.com/post/a-typology-of-enterprise-risks/</link>
       <pubDate>Sat, 17 Oct 2020 00:00:00 +0000</pubDate>
-      <guid>/post/a-typology-of-enterprise-risks/</guid>
+      <guid>https://anansheth.com/post/a-typology-of-enterprise-risks/</guid>
       <description>&lt;p&gt;Complex enterprises are vulnerable to a variety of risks.  To build an appreciation of the scale and variety of enterprise risks, I built a typology using latest data mining and data organization methods used by our group at Purdue&amp;rsquo;s Innovation Science Laboratory.  The typology uses a top level structure inspired by a 
-&lt;a href=&#34;https://www.sciencedirect.com/science/article/abs/pii/S0024630120302296&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;recently published paper&lt;/a&gt; from our lab.  
-&lt;a href=&#34;/post/risk_typo/risk_typo.html&#34;&gt;Have a look at the interactive risk typology here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;This resource is the basis for my doctoral research and in-development articles for peer-review.  Check back soon for updates on the articles.&lt;/p&gt;
+&lt;a href=&#34;https://www.sciencedirect.com/science/article/abs/pii/S0024630120302296&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;recently published paper&lt;/a&gt; from our lab.  The typology contains 700+ non-unique risks faced by enterprises, and is the base for a recent National Science Foundation award.&lt;/p&gt;
+&lt;!-- [Have a look at the interactive risk typology here](/post/risk_typo/risk_typo.html). --&gt;
+&lt;p&gt;This resource is the basis for my doctoral research and in-development articles for peer-review.  Check back soon for updates on the articles, and please contact me at 
+&lt;a href=&#34;mailto:sheth7@purdue.edu&#34;&gt;sheth7@purdue.edu&lt;/a&gt; if you are interested in the typology.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://anansheth.com/img/world_of_risk.png&#34; alt=&#34;World of Risk&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by/4.0/&#34;&gt;&lt;img alt=&#34;Creative Commons License&#34; style=&#34;border-width:0&#34; src=&#34;https://i.creativecommons.org/l/by/4.0/88x31.png&#34; /&gt;&lt;/a&gt;&lt;br /&gt;The interactive risk typology linked in this blog is licensed under a &lt;a rel=&#34;license&#34; href=&#34;http://creativecommons.org/licenses/by/4.0/&#34;&gt;Creative Commons Attribution 4.0 International License&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Please contact 
-&lt;a href=&#34;mailto:sheth7@purdue.edu&#34;&gt;me&lt;/a&gt; to get the right citation to use the typology.&lt;/p&gt;
-</description>
+&lt;!-- Please contact [me](mailto:sheth7@purdue.edu) to get the right citation to use the typology. --&gt;</description>
     </item>
     
   </channel>

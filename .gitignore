@@ -44,3 +44,9 @@ public/post/risk_post/
 
 # example folder
 content/examples/
+
+.DS_Store
+Thumbs.db
+
+/public/
+/resources/
